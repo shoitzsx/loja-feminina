@@ -2,7 +2,7 @@
 
 import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { type MouseEvent, useEffect, useRef, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { Logo } from "./Logo";
 import { SearchBox } from "./SearchBox";
@@ -12,6 +12,8 @@ type ScrollDirection = "down" | "up" | "idle";
 
 const COMPACT_SCROLL_THRESHOLD = 80;
 const EXPANDED_HEADER_FALLBACK_HEIGHT = 152;
+const ANIMACAO_MENU_LATERAL_MS = 260;
+const BLOQUEIO_BACKDROP_APOS_ABERTURA_MS = 120;
 
 const navItems = [
   ["Início", "/"],
@@ -26,7 +28,8 @@ const navItems = [
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const [menuAberto, setMenuAberto] = useState(false);
+  const [menuVisivel, setMenuVisivel] = useState(false);
   const [mode, setMode] = useState<HeaderMode>("expanded");
   const [headerHeight, setHeaderHeight] = useState(EXPANDED_HEADER_FALLBACK_HEIGHT);
   const headerRef = useRef<HTMLElement>(null);
@@ -36,8 +39,59 @@ export function Header() {
   const scrollFrameRef = useRef(0);
   const measureFrameRef = useRef(0);
   const transitionFrameRef = useRef(0);
+  const fechamentoMenuRef = useRef<number | null>(null);
+  const aberturaMenuEmMsRef = useRef(0);
   const { count } = useCart();
   const isCompact = mode === "compact";
+
+  function abrirMenu() {
+    if (fechamentoMenuRef.current) {
+      window.clearTimeout(fechamentoMenuRef.current);
+      fechamentoMenuRef.current = null;
+    }
+
+    aberturaMenuEmMsRef.current = performance.now();
+    setMenuVisivel(true);
+    setMenuAberto(true);
+  }
+
+  function fecharMenu() {
+    setMenuAberto(false);
+
+    if (fechamentoMenuRef.current) {
+      window.clearTimeout(fechamentoMenuRef.current);
+    }
+
+    fechamentoMenuRef.current = window.setTimeout(() => {
+      setMenuVisivel(false);
+      fechamentoMenuRef.current = null;
+    }, ANIMACAO_MENU_LATERAL_MS);
+  }
+
+  function fecharMenuBackdrop(event: MouseEvent<HTMLDivElement>) {
+    if (event.target !== event.currentTarget) return;
+    if (performance.now() - aberturaMenuEmMsRef.current < BLOQUEIO_BACKDROP_APOS_ABERTURA_MS) return;
+    fecharMenu();
+  }
+
+  useEffect(() => {
+    if (!menuVisivel) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [menuVisivel]);
+
+  useEffect(() => {
+    return () => {
+      if (!fechamentoMenuRef.current) return;
+      window.clearTimeout(fechamentoMenuRef.current);
+      fechamentoMenuRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const currentHeader = headerRef.current;
@@ -137,7 +191,7 @@ export function Header() {
       </div>
 
       <div className={`container-shell grid grid-cols-[auto_auto_1fr_auto] items-center gap-2 transition-[min-height,padding] duration-[250ms] ease-in-out lg:grid-cols-[auto_minmax(280px,1fr)_auto] lg:gap-4 ${isCompact ? "min-h-[56px] py-1.5" : "min-h-[60px] py-2"}`}>
-        <button className="rounded-lg p-2 text-ink transition hover:bg-rosebrand-100 lg:hidden" onClick={() => setOpen(true)} aria-label="Abrir menu">
+        <button className="rounded-lg p-2 text-ink transition hover:bg-rosebrand-100 lg:hidden" onClick={abrirMenu} aria-label="Abrir menu">
           <Menu className="size-6" />
         </button>
         <Logo compact={isCompact} />
@@ -172,13 +226,17 @@ export function Header() {
         </div>
       </nav>
 
-      {open && (
+      {menuVisivel && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
-          <button className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} aria-label="Fechar menu" />
-          <div className="relative flex h-full w-[min(88vw,360px)] flex-col bg-rosebrand-50/98 p-5 shadow-soft">
+          <div
+            className={`absolute inset-0 bg-ink/40 transition-opacity duration-[260ms] ease-out ${menuAberto ? "opacity-100" : "opacity-0"}`}
+            onClick={fecharMenuBackdrop}
+            aria-hidden="true"
+          />
+          <div className={`${menuAberto ? "animar-menu-lateral-abrir" : "animar-menu-lateral-fechar"} absolute left-0 top-0 flex h-[100dvh] w-[min(88vw,360px)] max-w-full flex-col overflow-y-auto border-r border-rosebrand-200 bg-rosebrand-50 p-5 shadow-soft`}>
             <div className="mb-5 flex items-center justify-between">
               <Logo compact />
-              <button className="rounded-lg p-2 hover:bg-rosebrand-100" onClick={() => setOpen(false)} aria-label="Fechar menu">
+              <button className="rounded-lg p-2 hover:bg-rosebrand-100" onClick={fecharMenu} aria-label="Fechar menu">
                 <X className="size-5" />
               </button>
             </div>
@@ -187,7 +245,7 @@ export function Header() {
             </div>
             <div className="grid gap-1">
               {navItems.map(([label, href]) => (
-                <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 text-sm font-bold text-ink transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
+                <Link key={href} href={href} onClick={fecharMenu} className="rounded-lg px-3 py-3 text-sm font-bold text-ink transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
                   {label}
                 </Link>
               ))}
