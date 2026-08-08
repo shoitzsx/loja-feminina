@@ -6,4 +6,4 @@ function normalizePublicAssetPath(value: string | undefined, fallback: string) {
 }
 
 export const brandLogoPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_LOGO_PATH, "/brand/logo.png");
-export const brandFaviconPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_FAVICON_PATH, "/brand/favicon.svg");
+export const brandFaviconPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_FAVICON_PATH, "/brand/favicon.png");

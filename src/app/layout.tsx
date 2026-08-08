@@ -11,7 +11,7 @@ import { absoluteUrl, siteUrl } from "@/lib/site-url";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Barb's Closet | Moda feminina, acessórios e semijoias",
+    default: "Barb's Closet",
     template: "%s | Barb's Closet"
   },
   description:
@@ -34,12 +34,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Barb's Closet | Moda feminina, acessórios e semijoias",
+    title: "Barb's Closet",
     description: "Moda feminina e semijoias com estética glam, elegante e fácil de comprar.",
     images: [absoluteUrl("/images/hero/barbs-closet-hero.png")]
   },
   icons: {
-    icon: brandFaviconPath
+    icon: brandFaviconPath,
+    shortcut: brandFaviconPath,
+    apple: brandFaviconPath
   },
   alternates: {
     canonical: absoluteUrl("/")

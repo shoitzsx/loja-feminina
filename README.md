@@ -74,10 +74,10 @@ A logo oficial enviada está salva em `public/brand/logo.png`. A variável deve 
 NEXT_PUBLIC_BRAND_LOGO_PATH="/brand/logo.png"
 ```
 
-O favicon pode continuar em `public/brand/favicon.svg` ou receber uma versão própria:
+O favicon da aba do navegador usa uma versão otimizada da própria logo em `public/brand/favicon.png`:
 
 ```bash
-NEXT_PUBLIC_BRAND_FAVICON_PATH="/brand/favicon.svg"
+NEXT_PUBLIC_BRAND_FAVICON_PATH="/brand/favicon.png"
 ```
 
 Esses caminhos já são usados no cabeçalho, menu mobile, login/cadastro, rodapé, favicon e dados estruturados de SEO. A logo é renderizada com `object-contain`, então artes quadradas como a oficial não ficam achatadas nem cortadas.
