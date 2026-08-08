@@ -68,7 +68,7 @@ O caminho da marca fica centralizado por variáveis de ambiente:
 - `NEXT_PUBLIC_BRAND_LOGO_PATH`
 - `NEXT_PUBLIC_BRAND_FAVICON_PATH`
 
-Para usar a logo oficial enviada, salve o arquivo original em `public/brand/logo.png` ou `public/brand/logo.webp` e aponte a variável para esse caminho:
+A logo oficial enviada está salva em `public/brand/logo.png`. A variável deve apontar para esse caminho:
 
 ```bash
 NEXT_PUBLIC_BRAND_LOGO_PATH="/brand/logo.png"

@@ -5,5 +5,5 @@ function normalizePublicAssetPath(value: string | undefined, fallback: string) {
   return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
 }
 
-export const brandLogoPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_LOGO_PATH, "/brand/logo.svg");
+export const brandLogoPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_LOGO_PATH, "/brand/logo.png");
 export const brandFaviconPath = normalizePublicAssetPath(process.env.NEXT_PUBLIC_BRAND_FAVICON_PATH, "/brand/favicon.svg");
