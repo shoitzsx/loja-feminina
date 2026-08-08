@@ -1,0 +1,11 @@
+<svg width="320" height="96" viewBox="0 0 320 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Barb's Closet</title>
+  <desc id="desc">Logo placeholder substituível da Barb's Closet.</desc>
+  <rect width="320" height="96" rx="0" fill="#FFF7FB"/>
+  <path d="M45 70C31 60 24 50 24 40C24 29 32 21 43 21C50 21 56 25 60 31C64 25 70 21 77 21C88 21 96 29 96 40C96 50 89 60 75 70L60 80L45 70Z" fill="#F72585"/>
+  <path d="M60 31C64 25 70 21 77 21C88 21 96 29 96 40C96 50 89 60 75 70L60 80" fill="#DB1B72"/>
+  <circle cx="60" cy="43" r="14" fill="#fff" opacity=".9"/>
+  <path d="M54 39H63.5C67.5 39 70 41.3 70 44.8C70 48.6 67.2 51 63 51H54V39ZM59.8 47H62.6C64 47 64.9 46.2 64.9 44.9C64.9 43.6 64 42.9 62.6 42.9H59.8V47Z" fill="#F72585"/>
+  <text x="118" y="45" fill="#211820" font-family="Georgia, serif" font-size="31" font-weight="700">Barb's</text>
+  <text x="118" y="70" fill="#C79B42" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="4">CLOSET</text>
+</svg>
