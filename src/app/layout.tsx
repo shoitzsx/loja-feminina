@@ -5,9 +5,10 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Barb's Closet | Moda feminina, acessórios e semijoias",
     template: "%s | Barb's Closet"
@@ -17,16 +18,30 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Barb's Closet",
     description: "Moda feminina e semijoias com estética glam, elegante e fácil de comprar.",
+    url: absoluteUrl("/"),
     siteName: "Barb's Closet",
-    images: ["/images/hero/barbs-closet-hero.png"],
+    images: [
+      {
+        url: absoluteUrl("/images/hero/barbs-closet-hero.png"),
+        width: 1600,
+        height: 900,
+        alt: "Barb's Closet - moda feminina e semijoias"
+      }
+    ],
     locale: "pt_BR",
     type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Barb's Closet | Moda feminina, acessórios e semijoias",
+    description: "Moda feminina e semijoias com estética glam, elegante e fácil de comprar.",
+    images: [absoluteUrl("/images/hero/barbs-closet-hero.png")]
   },
   icons: {
     icon: "/brand/favicon.svg"
   },
   alternates: {
-    canonical: "/"
+    canonical: absoluteUrl("/")
   }
 };
 

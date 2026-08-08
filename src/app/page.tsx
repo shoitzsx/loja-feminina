@@ -3,12 +3,15 @@ import Image from "next/image";
 import { CategoryCarousel } from "@/components/product/CategoryCarousel";
 import { ProductSections } from "@/components/product/ProductSections";
 import { Button } from "@/components/ui/Button";
+import { absoluteUrl } from "@/lib/site-url";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Store",
   name: "Barb's Closet",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: absoluteUrl("/"),
+  image: absoluteUrl("/images/hero/barbs-closet-hero.png"),
+  logo: absoluteUrl("/brand/logo.svg"),
   description: "Loja virtual feminina de roupas, acessórios e semijoias.",
   paymentAccepted: ["PIX", "Cartão de crédito", "Boleto"],
   currenciesAccepted: "BRL"

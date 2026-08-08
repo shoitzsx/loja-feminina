@@ -43,6 +43,24 @@ npm run dev
 
 Copie `.env.example` para `.env` e preencha credenciais reais antes de integrar banco, pagamentos, WhatsApp, e-mail e emissão fiscal.
 
+## URLs de SEO
+
+O projeto usa `NEXT_PUBLIC_SITE_URL` para montar URLs absolutas de metadados, canonical, Open Graph, Twitter, sitemap, robots.txt e JSON-LD.
+
+Em desenvolvimento, `.env.local` deve conter:
+
+```bash
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+```
+
+No painel do Vercel, configure a mesma variável em **Environment Variables** com a URL real de produção atual:
+
+```bash
+NEXT_PUBLIC_SITE_URL="https://lojafeminina-jdb2xmxsl-lucasizaias.vercel.app"
+```
+
+Se o domínio mudar no futuro, atualize apenas essa variável no Vercel e faça um novo deploy.
+
 ## Logo oficial
 
 Substitua os arquivos abaixo pela logo oficial mantendo os nomes:

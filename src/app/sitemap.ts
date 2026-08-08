@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { categories, products } from "@/lib/data";
+import { absoluteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const staticRoutes = [
     "",
     "/produtos",
@@ -27,8 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
-    ...staticRoutes.map((route) => ({ url: `${baseUrl}${route}`, lastModified: new Date() })),
-    ...categories.map((category) => ({ url: `${baseUrl}/categoria/${category.slug}`, lastModified: new Date() })),
-    ...products.map((product) => ({ url: `${baseUrl}/produto/${product.slug}`, lastModified: new Date(product.createdAt) }))
+    ...staticRoutes.map((route) => ({ url: absoluteUrl(route), lastModified: new Date() })),
+    ...categories.map((category) => ({ url: absoluteUrl(`/categoria/${category.slug}`), lastModified: new Date() })),
+    ...products.map((product) => ({ url: absoluteUrl(`/produto/${product.slug}`), lastModified: new Date(product.createdAt) }))
   ];
 }
