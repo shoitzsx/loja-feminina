@@ -86,7 +86,7 @@ function AuthShell({ title, children }: { title: string; children: React.ReactNo
   return (
     <section className="container-shell grid min-h-[70vh] place-items-center py-10">
       <div className="glam-panel w-full max-w-md animate-soft-pop rounded-lg p-6">
-        <div className="mx-auto mb-4 grid size-28 shrink-0 place-items-center overflow-hidden rounded-full bg-transparent shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
+        <div className="mx-auto mb-4 grid size-28 shrink-0 place-items-center overflow-hidden rounded-2xl bg-transparent shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
           {/* O fundo quadrado rosa vem embutido no arquivo /brand/logo.png; envie uma versao com fundo transparente para remove-lo totalmente. */}
           <Image src={brandLogoPath} alt="Barb's Closet" width={112} height={112} priority className="size-28 object-cover" />
         </div>
