@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CategoryCarousel } from "@/components/product/CategoryCarousel";
 import { ProductSections } from "@/components/product/ProductSections";
 import { Button } from "@/components/ui/Button";
+import { brandLogoPath } from "@/lib/brand-assets";
 import { absoluteUrl } from "@/lib/site-url";
 
 const structuredData = {
@@ -11,7 +12,7 @@ const structuredData = {
   name: "Barb's Closet",
   url: absoluteUrl("/"),
   image: absoluteUrl("/images/hero/barbs-closet-hero.png"),
-  logo: absoluteUrl("/brand/logo.svg"),
+  logo: absoluteUrl(brandLogoPath),
   description: "Loja virtual feminina de roupas, acessórios e semijoias.",
   paymentAccepted: ["PIX", "Cartão de crédito", "Boleto"],
   currenciesAccepted: "BRL"

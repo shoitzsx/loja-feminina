@@ -41,7 +41,7 @@ npm install
 npm run dev
 ```
 
-Copie `.env.example` para `.env` e preencha credenciais reais antes de integrar banco, pagamentos, WhatsApp, e-mail e emissão fiscal.
+Copie `.env.example` para `.env.local` e preencha credenciais reais antes de integrar banco, pagamentos, WhatsApp, e-mail e emissão fiscal.
 
 ## URLs de SEO
 
@@ -63,9 +63,21 @@ Se o domínio mudar no futuro, atualize apenas essa variável no Vercel e faça 
 
 ## Logo oficial
 
-Substitua os arquivos abaixo pela logo oficial mantendo os nomes:
+O caminho da marca fica centralizado por variáveis de ambiente:
 
-- `public/brand/logo.svg`
-- `public/brand/favicon.svg`
+- `NEXT_PUBLIC_BRAND_LOGO_PATH`
+- `NEXT_PUBLIC_BRAND_FAVICON_PATH`
 
-Esses caminhos já são usados no cabeçalho, autenticação, checkout e metadados.
+Para usar a logo oficial enviada, salve o arquivo original em `public/brand/logo.png` ou `public/brand/logo.webp` e aponte a variável para esse caminho:
+
+```bash
+NEXT_PUBLIC_BRAND_LOGO_PATH="/brand/logo.png"
+```
+
+O favicon pode continuar em `public/brand/favicon.svg` ou receber uma versão própria:
+
+```bash
+NEXT_PUBLIC_BRAND_FAVICON_PATH="/brand/favicon.svg"
+```
+
+Esses caminhos já são usados no cabeçalho, menu mobile, login/cadastro, rodapé, favicon e dados estruturados de SEO. A logo é renderizada com `object-contain`, então artes quadradas como a oficial não ficam achatadas nem cortadas.

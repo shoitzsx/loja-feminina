@@ -5,6 +5,7 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { brandFaviconPath } from "@/lib/brand-assets";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     images: [absoluteUrl("/images/hero/barbs-closet-hero.png")]
   },
   icons: {
-    icon: "/brand/favicon.svg"
+    icon: brandFaviconPath
   },
   alternates: {
     canonical: absoluteUrl("/")

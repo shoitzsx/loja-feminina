@@ -4,6 +4,7 @@ import { Eye, EyeOff, LockKeyhole, Mail, Phone, UserRound } from "lucide-react";
 import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { brandLogoPath } from "@/lib/brand-assets";
 import { isStrongPassword } from "@/lib/password";
 
 export function LoginForm() {
@@ -85,7 +86,9 @@ function AuthShell({ title, children }: { title: string; children: React.ReactNo
   return (
     <section className="container-shell grid min-h-[70vh] place-items-center py-10">
       <div className="glam-panel w-full max-w-md animate-soft-pop rounded-lg p-6">
-        <Image src="/brand/logo.svg" alt="Barb's Closet" width={176} height={53} className="mx-auto mb-5 h-auto w-44" />
+        <div className="relative mx-auto mb-5 h-36 w-36">
+          <Image src={brandLogoPath} alt="Barb's Closet" fill priority sizes="144px" className="object-contain drop-shadow-[0_10px_20px_rgba(247,37,133,0.18)]" />
+        </div>
         <h1 className="mb-5 text-center text-2xl font-black text-ink">{title}</h1>
         {children}
         <p className="mt-5 text-center text-xs leading-5 text-neutral-500">
