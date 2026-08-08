@@ -12,27 +12,14 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   background:
+    linear-gradient(135deg, rgba(255, 22, 137, 0.08) 0 12%, transparent 12% 28%, rgba(216, 168, 61, 0.07) 28% 38%, transparent 38% 100%),
     linear-gradient(180deg, #fff0f8 0%, #ffd9ed 36%, #fff5fb 72%, #ffe6f3 100%);
+  background-size: 180px 180px, auto;
   color: var(--foreground);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(135deg, rgba(255, 22, 137, 0.08) 0 12%, transparent 12% 28%, rgba(216, 168, 61, 0.07) 28% 38%, transparent 38% 100%);
-  background-size: 180px 180px;
 }
 
 a {
@@ -82,9 +69,8 @@ textarea:focus-visible {
 
 .glam-panel {
   border: 1px solid rgba(255, 63, 159, 0.2);
-  background: rgba(255, 244, 250, 0.86);
+  background: rgba(255, 244, 250, 0.94);
   box-shadow: 0 14px 34px rgba(189, 0, 100, 0.12);
-  backdrop-filter: blur(14px);
 }
 
 .glam-hover {
@@ -103,7 +89,52 @@ textarea:focus-visible {
 
 .pink-sheen {
   background-size: 220% 220%;
-  animation: pinkSheen 4s ease-in-out infinite;
+}
+
+.pink-sheen:hover {
+  animation: pinkSheen 1.8s ease-in-out infinite;
+}
+
+.category-marquee {
+  cursor: grab;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
+  touch-action: pan-y pan-x;
+}
+
+.category-marquee:active {
+  cursor: grabbing;
+}
+
+.category-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: categoryMarquee 34s linear infinite;
+}
+
+.category-marquee.is-paused .category-marquee__track,
+.category-marquee:hover .category-marquee__track {
+  animation-play-state: paused;
+}
+
+.category-marquee__group {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.footer-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.footer-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes shimmer {
@@ -122,5 +153,29 @@ textarea:focus-visible {
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes categoryMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .category-marquee__track {
+    animation: none;
   }
 }

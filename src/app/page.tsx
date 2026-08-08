@@ -59,7 +59,7 @@ export default function HomePage() {
 
 function HeroBenefit({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="inline-flex items-center gap-2 rounded-lg border border-rosebrand-200 bg-rosebrand-50/90 px-3 py-2 shadow-card backdrop-blur transition hover:-translate-y-0.5 hover:bg-rosebrand-100">
+    <div className="inline-flex items-center gap-2 rounded-lg border border-rosebrand-200 bg-rosebrand-50/95 px-3 py-2 shadow-card transition hover:-translate-y-0.5 hover:bg-rosebrand-100">
       <span className="text-rosebrand-600">{icon}</span>
       <span>{label}</span>
     </div>

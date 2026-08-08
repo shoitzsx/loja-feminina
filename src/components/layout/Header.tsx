@@ -24,7 +24,7 @@ export function Header() {
   const { count } = useCart();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rosebrand-200 bg-rosebrand-50/92 shadow-card backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-rosebrand-200 bg-rosebrand-50/98 shadow-card">
       <div className="pink-sheen bg-[linear-gradient(90deg,#e60077,#ff1689,#d8a83d,#ff1689)] py-2 text-center text-xs font-semibold text-white">
         Frete grátis acima de R$ 299 · Novidades glam toda semana
       </div>
@@ -64,7 +64,7 @@ export function Header() {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
           <button className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} aria-label="Fechar menu" />
-          <div className="relative flex h-full w-[min(88vw,360px)] flex-col bg-rosebrand-50/95 p-5 shadow-soft backdrop-blur">
+          <div className="relative flex h-full w-[min(88vw,360px)] flex-col bg-rosebrand-50/98 p-5 shadow-soft">
             <div className="mb-5 flex items-center justify-between">
               <Logo compact />
               <button className="rounded-lg p-2 hover:bg-rosebrand-100" onClick={() => setOpen(false)} aria-label="Fechar menu">

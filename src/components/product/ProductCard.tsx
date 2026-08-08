@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
   const price = product.salePrice ?? product.price;
 
   return (
-    <article className="group glam-hover animate-rise-in overflow-hidden rounded-lg border border-rosebrand-200 bg-rosebrand-50/85 shadow-card backdrop-blur">
+    <article className="group glam-hover animate-rise-in overflow-hidden rounded-lg border border-rosebrand-200 bg-rosebrand-50/95 shadow-card">
       <Link href={`/produto/${product.slug}`} className="relative block overflow-hidden bg-rosebrand-100">
         <Image
           src={product.images[0]}

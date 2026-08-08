@@ -42,7 +42,7 @@ export function SearchBox({ compact = false }: { compact?: boolean }) {
         )}
       </form>
       {suggestions.length > 0 && (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-lg border border-rosebrand-200 bg-rosebrand-50/95 shadow-soft backdrop-blur">
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-lg border border-rosebrand-200 bg-rosebrand-50/98 shadow-soft">
           {suggestions.map((product) => (
             <Link key={product.id} href={`/produto/${product.slug}`} className="grid grid-cols-[48px_1fr] gap-3 border-b border-rosebrand-100 p-3 transition last:border-0 hover:bg-rosebrand-100">
               <Image src={product.images[0]} alt="" width={48} height={48} className="h-12 w-12 rounded object-cover" />

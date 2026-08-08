@@ -111,7 +111,7 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
       {drawerOpen && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
           <button className="absolute inset-0 bg-ink/40" onClick={() => setDrawerOpen(false)} aria-label="Fechar filtros" />
-          <div className="absolute bottom-0 left-0 right-0 max-h-[88vh] overflow-y-auto rounded-t-lg bg-rosebrand-50/95 p-5 shadow-soft backdrop-blur">
+          <div className="absolute bottom-0 left-0 right-0 max-h-[88vh] overflow-y-auto rounded-t-lg bg-rosebrand-50/95 p-5 shadow-soft">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-black">Filtros</h2>
               <button onClick={() => setDrawerOpen(false)} className="rounded-lg p-2 hover:bg-rosebrand-100" aria-label="Fechar filtros">
