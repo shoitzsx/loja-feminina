@@ -52,7 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <CartProvider>
           <Header />
-          <main>{children}</main>
+          <main className="site-main">{children}</main>
           <Footer />
           <WhatsAppButton />
           <CookieBanner />
