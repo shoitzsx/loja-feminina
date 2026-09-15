@@ -1,4 +1,4 @@
-# Barb's Closet
+# Closet
 
 E-commerce feminino em Next.js, React, TypeScript, Tailwind CSS, Prisma e PostgreSQL.
 
