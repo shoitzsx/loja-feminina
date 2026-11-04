@@ -14,7 +14,7 @@ const structuredData = {
   image: absoluteUrl("/images/hero/barbs-closet-hero.png"),
   logo: absoluteUrl(brandLogoPath),
   description: "Loja virtual feminina de roupas, acessórios e semijoias.",
-  paymentAccepted: ["PIX", "Cartão de crédito", "Boleto"],
+  paymentAccepted: ["PIX", "Cartão de crédito", "Cartão de débito"],
   currenciesAccepted: "BRL"
 };
 

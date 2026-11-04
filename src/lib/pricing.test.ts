@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateCartPricing } from "./pricing";
+import { calculateCartPricing, isShippingOptionAvailable } from "./pricing";
 import type { CartLine } from "./types";
 
 const roseMidi: CartLine = { productId: "prod_rose-midi", variantId: "var_rose-m", quantity: 1 }; // R$ 289,90 por R$ 239,90
@@ -73,6 +73,21 @@ describe("calculateCartPricing", () => {
       expect(pricing.subtotal).toBeCloseTo(319.8, 2);
       expect(pricing.shipping).toBe(0);
       expect(pricing.total).toBeCloseTo(319.8, 2);
+    });
+  });
+
+  describe("opção \"Frete grátis\"", () => {
+    it("não cobra nem vale abaixo de R$ 299: cai para a entrega padrão", () => {
+      const pricing = calculateCartPricing([blouse], undefined, "free"); // 219,90
+
+      expect(pricing.shipping).toBeCloseTo(19.9, 2);
+    });
+
+    it("só está disponível a partir de R$ 299", () => {
+      expect(isShippingOptionAvailable("free", 298.99)).toBe(false);
+      expect(isShippingOptionAvailable("free", 299)).toBe(true);
+      expect(isShippingOptionAvailable("standard", 10)).toBe(true);
+      expect(isShippingOptionAvailable("express", 10)).toBe(true);
     });
   });
 

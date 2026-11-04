@@ -35,7 +35,7 @@ Uma loja virtual pensada para moda feminina e semijoias, em que a cliente conseg
 - 👗 **Página de produto** com tamanhos e variações.
 - 🔎 **Busca** de produtos no catálogo.
 - 🛒 **Carrinho** que fica salvo no navegador, com cupons de desconto de exemplo e três opções de frete.
-- 💳 **Checkout**: o servidor confere os dados e **calcula o preço** a partir do catálogo (o preço nunca vem do navegador) e gera um pagamento **simulado** por PIX, cartão ou boleto.
+- 💳 **Checkout**: o servidor confere os dados e **calcula o preço** a partir do catálogo (o preço nunca vem do navegador) e gera um pagamento **simulado** por PIX ou cartão.
 - 📮 **Consulta de CEP** pelo ViaCEP, quando ativada na configuração.
 - 📄 **Páginas institucionais**: sobre, contato, guia de tamanhos, políticas de entrega e de privacidade, trocas e devoluções, termos e cookies, com aviso de cookies.
 - 💬 **Botão de WhatsApp**, quando o número da loja está configurado.

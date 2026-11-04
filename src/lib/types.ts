@@ -87,5 +87,5 @@ export type CheckoutPayload = {
   items: CartLine[];
   couponCode?: string;
   shippingOptionId: string;
-  paymentMethod: "PIX" | "CREDIT_CARD" | "DEBIT_CARD" | "BOLETO";
+  paymentMethod: "PIX" | "CREDIT_CARD" | "DEBIT_CARD";
 };

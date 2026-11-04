@@ -29,7 +29,7 @@ const checkoutSchema = z.object({
   ).min(1),
   couponCode: z.string().optional(),
   shippingOptionId: z.string(),
-  paymentMethod: z.enum(["PIX", "CREDIT_CARD", "DEBIT_CARD", "BOLETO"])
+  paymentMethod: z.enum(["PIX", "CREDIT_CARD", "DEBIT_CARD"])
 });
 
 export async function POST(request: NextRequest) {

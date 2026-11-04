@@ -2,6 +2,14 @@ import { coupons, products, shippingOptions } from "./data";
 import { discountPercent } from "./format";
 import type { CartLine } from "./types";
 
+/** Valor mínimo do subtotal para o frete grátis. */
+export const FREE_SHIPPING_MIN = 299;
+
+/** A opção "Frete grátis" só existe a partir do valor mínimo; as demais sempre estão disponíveis. */
+export function isShippingOptionAvailable(optionId: string, subtotal: number): boolean {
+  return optionId !== "free" || subtotal >= FREE_SHIPPING_MIN;
+}
+
 export type PricedLine = {
   productId: string;
   variantId: string;
@@ -83,8 +91,9 @@ export function calculateCartPricing(items: CartLine[], couponCode?: string, shi
     couponMessage = `Cupom ${coupon.code} aplicado.`;
   }
 
-  const requestedShipping = shippingOptions.find((option) => option.id === shippingOptionId) ?? shippingOptions[0];
-  const shipping = subtotal >= 299 ? 0 : requestedShipping.price;
+  const requested = shippingOptions.find((option) => option.id === shippingOptionId);
+  const requestedShipping = requested && isShippingOptionAvailable(requested.id, subtotal) ? requested : shippingOptions[0];
+  const shipping = subtotal >= FREE_SHIPPING_MIN ? 0 : requestedShipping.price;
   const total = Math.max(0, roundMoney(subtotal - couponDiscount + shipping));
 
   return {

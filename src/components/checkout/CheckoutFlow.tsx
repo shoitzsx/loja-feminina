@@ -2,12 +2,12 @@
 
 import { CheckCircle2, CreditCard, MapPin, UserRound, WalletCards } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { Button } from "@/components/ui/Button";
 import { shippingOptions } from "@/lib/data";
 import { formatMoney } from "@/lib/format";
-import { calculateCartPricing } from "@/lib/pricing";
+import { FREE_SHIPPING_MIN, calculateCartPricing, isShippingOptionAvailable } from "@/lib/pricing";
 import type { CheckoutPayload } from "@/lib/types";
 
 const steps = [
@@ -45,6 +45,11 @@ export function CheckoutFlow() {
   });
 
   const pricing = useMemo(() => calculateCartPricing(items, coupon, shippingOptionId), [coupon, items, shippingOptionId]);
+
+  // Se o carrinho cair abaixo do mínimo com "Frete grátis" marcado, volta para a entrega padrão.
+  useEffect(() => {
+    if (!isShippingOptionAvailable(shippingOptionId, pricing.subtotal)) setShippingOptionId("standard");
+  }, [pricing.subtotal, shippingOptionId]);
 
   async function lookupCep(zipCode: string) {
     const clean = zipCode.replace(/\D/g, "");
@@ -163,18 +168,23 @@ export function CheckoutFlow() {
         {step === 3 && (
           <Panel title="Entrega">
             <div className="grid gap-3">
-              {shippingOptions.map((option) => (
-                <label key={option.id} className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-surface/55 p-4 transition hover:bg-rosebrand-100">
+              {shippingOptions.map((option) => {
+                const available = isShippingOptionAvailable(option.id, pricing.subtotal);
+                return (
+                <label key={option.id} aria-disabled={!available} className={`flex items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-surface/55 p-4 transition ${available ? "cursor-pointer hover:bg-rosebrand-100" : "cursor-not-allowed opacity-50"}`}>
                   <span>
                     <span className="block font-black text-ink">{option.label}</span>
-                    <span className="text-sm text-muted">{option.estimate}</span>
+                    <span className="text-sm text-muted">
+                      {available ? option.estimate : `Faltam ${formatMoney(FREE_SHIPPING_MIN - pricing.subtotal)} para liberar`}
+                    </span>
                   </span>
                   <span className="flex items-center gap-3 font-black text-rosebrand-700">
-                    {pricing.subtotal >= 299 || option.price === 0 ? "Grátis" : formatMoney(option.price)}
-                    <input type="radio" name="shipping" checked={shippingOptionId === option.id} onChange={() => setShippingOptionId(option.id)} className="size-5 accent-rosebrand-500" />
+                    {pricing.subtotal >= FREE_SHIPPING_MIN || option.price === 0 ? "Grátis" : formatMoney(option.price)}
+                    <input type="radio" name="shipping" disabled={!available} checked={shippingOptionId === option.id} onChange={() => setShippingOptionId(option.id)} className="size-5 accent-rosebrand-500" />
                   </span>
                 </label>
-              ))}
+                );
+              })}
             </div>
           </Panel>
         )}
@@ -188,8 +198,7 @@ export function CheckoutFlow() {
               {[
                 ["PIX", "PIX"],
                 ["CREDIT_CARD", "Cartão de crédito"],
-                ["DEBIT_CARD", "Cartão de débito"],
-                ["BOLETO", "Boleto"]
+                ["DEBIT_CARD", "Cartão de débito"]
               ].map(([value, label]) => (
                 <label key={value} className="flex cursor-pointer items-center justify-between rounded-lg border border-rosebrand-200 bg-surface/55 p-4 font-bold transition hover:bg-rosebrand-100">
                   {label}

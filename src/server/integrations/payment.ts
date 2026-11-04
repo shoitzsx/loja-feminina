@@ -4,7 +4,7 @@ export type PaymentIntentInput = {
   orderNumber: string;
   amount: number;
   customerEmail: string;
-  method: "PIX" | "CREDIT_CARD" | "DEBIT_CARD" | "BOLETO";
+  method: "PIX" | "CREDIT_CARD" | "DEBIT_CARD";
 };
 
 export type PaymentIntent = {
