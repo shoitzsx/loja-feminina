@@ -4,6 +4,7 @@ import { SlidersHorizontal, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { ProductGrid } from "@/components/product/ProductGrid";
+import { SuggestionBox } from "@/components/product/SuggestionBox";
 import { normalizeSearch } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
@@ -106,6 +107,7 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
         <div>
           <p className="mb-4 text-sm font-bold text-muted">{filtered.length} produto(s) encontrado(s)</p>
           <ProductGrid products={filtered} />
+          <SuggestionBox />
         </div>
       </div>
       {drawerOpen && (

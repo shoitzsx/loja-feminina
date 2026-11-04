@@ -12,6 +12,7 @@ import { discountPercent, formatMoney, installmentText } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { ProductGrid } from "./ProductGrid";
+import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { SizeGuideWidget } from "./SizeGuideWidget";
 
 export function ProductDetail({ product }: { product: Product }) {
@@ -112,6 +113,8 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
       </div>
+
+      <ProductReviews />
 
       <section className="mt-12">
         <div className="mb-5">
