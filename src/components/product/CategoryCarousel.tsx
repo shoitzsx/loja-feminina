@@ -103,7 +103,7 @@ function CategoryGroup({ suffix, ariaHidden = false }: { suffix: string; ariaHid
           className="group glam-hover relative h-56 w-[78vw] max-w-[280px] shrink-0 snap-start overflow-hidden rounded-lg border border-rosebrand-200 bg-rosebrand-100 shadow-card sm:w-[260px]"
         >
           <Image src={category.image} alt={ariaHidden ? "" : category.description} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="280px" />
-          <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-4 text-white">
+          <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
             <span className="block text-lg font-black">{category.name}</span>
             <span className="mt-1 block text-xs leading-5 text-white/80">{category.description}</span>
           </span>

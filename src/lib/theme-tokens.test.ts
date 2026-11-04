@@ -107,6 +107,26 @@ describe("tokens de tema", () => {
     expect(parseFloat(vitrine["radius-card"])).toBeGreaterThanOrEqual(16);
   });
 
+  it("fundos que invertem de tema não levam texto branco fixo", () => {
+    const offenders: string[] = [];
+    for (const file of readdirSync("src", { recursive: true, encoding: "utf8" })) {
+      if (!file.endsWith(".tsx")) continue;
+      for (const line of readFileSync(join("src", file), "utf8").split("\n")) {
+        const inverts = /\b(bg-plum|bg-ink|bg-champagne|bg-rosebrand-500)\b(?!\/)/.test(line) || /\bfrom-ink\//.test(line);
+        if (inverts && /\btext-white\b/.test(line)) offenders.push(`${file}: ${line.trim().slice(0, 80)}`);
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("os véus de fundo (scrim) são escuros em qualquer tema", () => {
+    const offenders: string[] = [];
+    for (const file of readdirSync("src", { recursive: true, encoding: "utf8" })) {
+      if (file.endsWith(".tsx") && /\bbg-ink\//.test(readFileSync(join("src", file), "utf8"))) offenders.push(file);
+    }
+    expect(offenders).toEqual([]);
+  });
+
   it("o escuro usa fundo e hero próprios", () => {
     const escuro = themeBlock("escuro");
     expect(escuro["page-bg"]).toContain("/images/novas/fundo-escuro.webp");

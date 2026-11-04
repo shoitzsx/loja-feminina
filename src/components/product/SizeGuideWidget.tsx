@@ -33,7 +33,7 @@ export function SizeGuideWidget({ inline = false }: { inline?: boolean }) {
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse text-sm">
           <thead>
-            <tr className="bg-ink text-white">
+            <tr className="bg-ink text-on-accent">
               {["Tamanho", "Busto", "Cintura", "Quadril"].map((head) => (
                 <th key={head} className="px-3 py-2 text-left">{head}</th>
               ))}
@@ -67,7 +67,7 @@ export function SizeGuideWidget({ inline = false }: { inline?: boolean }) {
         Qual é o meu tamanho?
       </Button>
       {open && (
-        <div className="fixed inset-0 z-50 grid place-items-end bg-ink/40 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-50 grid place-items-end bg-black/40 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true">
           <div className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-lg bg-rosebrand-50/95 p-5 shadow-soft sm:rounded-lg">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl font-black text-ink">Guia de tamanhos</h2>

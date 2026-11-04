@@ -207,7 +207,7 @@ export function Header() {
           </Link>
           <Link href="/carrinho" aria-label="Carrinho" className="relative rounded-lg p-2 text-ink transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
             <ShoppingBag className="size-5" />
-            {count > 0 && <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-rosebrand-500 px-1 text-[11px] font-black text-white">{count}</span>}
+            {count > 0 && <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-rosebrand-500 px-1 text-[11px] font-black text-on-accent">{count}</span>}
           </Link>
         </nav>
       </div>
@@ -229,7 +229,7 @@ export function Header() {
       {menuVisivel && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
           <div
-            className={`absolute inset-0 bg-ink/40 transition-opacity duration-[260ms] ease-out ${menuAberto ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 bg-black/40 transition-opacity duration-[260ms] ease-out ${menuAberto ? "opacity-100" : "opacity-0"}`}
             onClick={fecharMenuBackdrop}
             aria-hidden="true"
           />

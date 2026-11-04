@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 
 const toneStyles = {
   pink: "pink-sheen bg-brand-gradient text-on-accent shadow-glow",
-  gold: "bg-champagne text-white shadow-card",
+  gold: "bg-champagne text-on-accent shadow-card",
   light: "bg-rosebrand-100 text-rosebrand-800",
-  dark: "bg-plum text-white"
+  dark: "bg-plum text-on-accent"
 };
 
 export function Badge({ children, tone = "pink", className }: { children: ReactNode; tone?: keyof typeof toneStyles; className?: string }) {
