@@ -1,0 +1,177 @@
+/*
+ * Tokens dos 4 temas. Cores em canais RGB ("255 22 137") para o Tailwind aplicar opacidade.
+ * Para o tema "vibrante" os valores reproduzem exatamente o visual original da loja.
+ * Forma, fontes, fundo e hero dos demais temas são definidos nas fases seguintes.
+ */
+
+:root,
+[data-theme="vibrante"] {
+  --rb-50: 255 240 248;
+  --rb-100: 255 215 236;
+  --rb-200: 255 173 216;
+  --rb-300: 255 120 189;
+  --rb-400: 255 63 159;
+  --rb-500: 255 22 137;
+  --rb-600: 230 0 119;
+  --rb-700: 189 0 100;
+  --rb-800: 148 6 80;
+  --rb-900: 111 10 66;
+  --plum: 90 18 56;
+  --blush: 255 244 250;
+  --gold: 216 168 61;
+
+  --bg: 255 240 248;
+  --surface: 255 255 255;
+  --surface-2: 255 244 250;
+  --text: 36 16 29;
+  --text-muted: 82 82 82;
+  --border: 255 173 216;
+  --accent: 230 0 119;
+  --on-accent: 255 255 255;
+
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --shadow-soft: 0 24px 70px rgba(230, 0, 119, 0.16);
+  --shadow-card: 0 14px 34px rgba(189, 0, 100, 0.12);
+  --shadow-glow: 0 18px 45px rgba(255, 22, 137, 0.28);
+
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --page-bg:
+    linear-gradient(135deg, rgba(255, 22, 137, 0.08) 0 12%, transparent 12% 28%, rgba(216, 168, 61, 0.07) 28% 38%, transparent 38% 100%),
+    linear-gradient(180deg, #fff0f8 0%, #ffd9ed 36%, #fff5fb 72%, #ffe6f3 100%);
+  --page-bg-size: 180px 180px, auto;
+  --hero-img: url("/images/hero/barbs-closet-hero.png");
+
+  --brand-gradient: linear-gradient(135deg, #ff1689, #ff4fac, #e60077);
+  --topbar-gradient: linear-gradient(90deg, #e60077, #ff1689, #d8a83d, #ff1689);
+  --toast-gradient: linear-gradient(135deg, #ff1689, #5a1238);
+}
+
+[data-theme="editorial"] {
+  --rb-50: 252 247 245;
+  --rb-100: 245 232 230;
+  --rb-200: 234 212 214;
+  --rb-300: 214 169 176;
+  --rb-400: 198 137 148;
+  --rb-500: 183 110 121;
+  --rb-600: 154 85 96;
+  --rb-700: 124 66 76;
+  --rb-800: 94 50 58;
+  --rb-900: 66 36 42;
+  --plum: 74 40 50;
+  --blush: 252 247 245;
+  --gold: 184 152 90;
+
+  --bg: 250 246 241;
+  --surface: 255 255 255;
+  --surface-2: 245 238 231;
+  --text: 42 35 38;
+  --text-muted: 107 94 99;
+  --border: 234 212 214;
+  --accent: 154 85 96;
+  --on-accent: 255 255 255;
+
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --shadow-soft: 0 24px 70px rgba(154, 85, 96, 0.14);
+  --shadow-card: 0 14px 34px rgba(124, 66, 76, 0.1);
+  --shadow-glow: 0 18px 45px rgba(183, 110, 121, 0.24);
+
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --page-bg: linear-gradient(180deg, #faf6f1 0%, #f5eee7 100%);
+  --page-bg-size: auto;
+  --hero-img: url("/images/hero/barbs-closet-hero.png");
+
+  --brand-gradient: linear-gradient(135deg, #b76e79, #c98b94, #9a5560);
+  --topbar-gradient: linear-gradient(90deg, #9a5560, #b76e79, #b8985a, #b76e79);
+  --toast-gradient: linear-gradient(135deg, #9a5560, #4a2832);
+}
+
+[data-theme="vitrine-3d"] {
+  --rb-50: 253 240 238;
+  --rb-100: 250 222 220;
+  --rb-200: 240 196 196;
+  --rb-300: 224 160 166;
+  --rb-400: 208 128 138;
+  --rb-500: 201 112 122;
+  --rb-600: 168 80 92;
+  --rb-700: 138 62 74;
+  --rb-800: 108 48 58;
+  --rb-900: 78 34 42;
+  --plum: 90 30 46;
+  --blush: 253 240 238;
+  --gold: 190 140 100;
+
+  --bg: 246 227 224;
+  --surface: 255 255 255;
+  --surface-2: 252 240 238;
+  --text: 42 26 32;
+  --text-muted: 100 80 88;
+  --border: 240 196 196;
+  --accent: 168 80 92;
+  --on-accent: 255 255 255;
+
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --shadow-soft: 0 24px 70px rgba(168, 80, 92, 0.16);
+  --shadow-card: 0 14px 34px rgba(138, 62, 74, 0.12);
+  --shadow-glow: 0 18px 45px rgba(201, 112, 122, 0.28);
+
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --page-bg: linear-gradient(180deg, #f6e3e0 0%, #f9ece9 100%);
+  --page-bg-size: auto;
+  --hero-img: url("/images/hero/barbs-closet-hero.png");
+
+  --brand-gradient: linear-gradient(135deg, #c9707a, #dc8f98, #a8505c);
+  --topbar-gradient: linear-gradient(90deg, #a8505c, #c9707a, #be8c64, #c9707a);
+  --toast-gradient: linear-gradient(135deg, #a8505c, #5a1e2e);
+}
+
+[data-theme="escuro"] {
+  /* Escala invertida: 50 = superfície escura, 900 = texto claro. */
+  --rb-50: 42 18 32;
+  --rb-100: 58 26 44;
+  --rb-200: 84 40 62;
+  --rb-300: 140 70 100;
+  --rb-400: 200 90 140;
+  --rb-500: 255 79 172;
+  --rb-600: 224 164 88;
+  --rb-700: 240 190 120;
+  --rb-800: 247 215 160;
+  --rb-900: 252 235 215;
+  --plum: 240 200 215;
+  --blush: 54 24 42;
+  --gold: 224 164 88;
+
+  --bg: 26 10 18;
+  --surface: 42 18 32;
+  --surface-2: 54 24 42;
+  --text: 247 233 238;
+  --text-muted: 200 170 184;
+  --border: 90 40 66;
+  --accent: 224 164 88;
+  --on-accent: 26 10 18;
+
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 14px 34px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 18px 45px rgba(224, 164, 88, 0.22);
+
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --page-bg: linear-gradient(180deg, #1a0a12 0%, #230d19 100%);
+  --page-bg-size: auto;
+  --hero-img: url("/images/hero/barbs-closet-hero.png");
+
+  --brand-gradient: linear-gradient(135deg, #e0a458, #f0c27c, #c98a3c);
+  --topbar-gradient: linear-gradient(90deg, #2a1220, #e0a458, #2a1220);
+  --toast-gradient: linear-gradient(135deg, #e0a458, #5a1238);
+}

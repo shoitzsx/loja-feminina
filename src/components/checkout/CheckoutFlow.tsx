@@ -126,7 +126,7 @@ export function CheckoutFlow() {
             const Icon = item.icon;
             const active = item.id <= step;
             return (
-              <div key={item.id} className={active ? "pink-sheen rounded-lg bg-[linear-gradient(135deg,#ff1689,#ff5fb0,#e60077)] p-2 text-white shadow-card" : "rounded-lg bg-white/55 p-2 text-neutral-500"}>
+              <div key={item.id} className={active ? "pink-sheen rounded-lg bg-brand-gradient p-2 text-on-accent shadow-card" : "rounded-lg bg-white/55 p-2 text-neutral-500"}>
                 <Icon className="mx-auto size-5" />
                 <span className="mt-1 block truncate text-center text-[11px] font-black">{item.label}</span>
               </div>

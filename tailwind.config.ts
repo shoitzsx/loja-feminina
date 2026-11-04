@@ -10,26 +10,33 @@ const config: Config = {
     extend: {
       colors: {
         rosebrand: {
-          50: "#fff0f8",
-          100: "#ffd7ec",
-          200: "#ffadd8",
-          300: "#ff78bd",
-          400: "#ff3f9f",
-          500: "#ff1689",
-          600: "#e60077",
-          700: "#bd0064",
-          800: "#940650",
-          900: "#6f0a42"
+          50: "rgb(var(--rb-50) / <alpha-value>)",
+          100: "rgb(var(--rb-100) / <alpha-value>)",
+          200: "rgb(var(--rb-200) / <alpha-value>)",
+          300: "rgb(var(--rb-300) / <alpha-value>)",
+          400: "rgb(var(--rb-400) / <alpha-value>)",
+          500: "rgb(var(--rb-500) / <alpha-value>)",
+          600: "rgb(var(--rb-600) / <alpha-value>)",
+          700: "rgb(var(--rb-700) / <alpha-value>)",
+          800: "rgb(var(--rb-800) / <alpha-value>)",
+          900: "rgb(var(--rb-900) / <alpha-value>)"
         },
-        champagne: "#d8a83d",
-        ink: "#24101d",
-        plum: "#5a1238",
-        blush: "#fff4fa"
+        champagne: "rgb(var(--gold) / <alpha-value>)",
+        ink: "rgb(var(--text) / <alpha-value>)",
+        plum: "rgb(var(--plum) / <alpha-value>)",
+        blush: "rgb(var(--blush) / <alpha-value>)",
+        surface: {
+          DEFAULT: "rgb(var(--surface) / <alpha-value>)",
+          2: "rgb(var(--surface-2) / <alpha-value>)"
+        },
+        muted: "rgb(var(--text-muted) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        "on-accent": "rgb(var(--on-accent) / <alpha-value>)"
       },
       boxShadow: {
-        soft: "0 24px 70px rgba(230, 0, 119, 0.16)",
-        card: "0 14px 34px rgba(189, 0, 100, 0.12)",
-        glow: "0 18px 45px rgba(255, 22, 137, 0.28)"
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-card)",
+        glow: "var(--shadow-glow)"
       },
       animation: {
         "rise-in": "riseIn .65s ease both",

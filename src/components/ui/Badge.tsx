@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import type { ReactNode } from "react";
 
 const toneStyles = {
-  pink: "pink-sheen bg-[linear-gradient(135deg,#ff1689,#ff69b9,#e60077)] text-white shadow-glow",
+  pink: "pink-sheen bg-brand-gradient text-on-accent shadow-glow",
   gold: "bg-champagne text-white shadow-card",
   light: "bg-rosebrand-100 text-rosebrand-800",
   dark: "bg-plum text-white"

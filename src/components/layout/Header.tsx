@@ -185,7 +185,7 @@ export function Header() {
       className="fixed inset-x-0 top-0 z-40 border-b border-rosebrand-200 bg-rosebrand-50/98 shadow-card"
     >
       <div className={`overflow-hidden transition-[max-height,opacity] duration-[250ms] ease-in-out ${isCompact ? "max-h-0 opacity-0" : "max-h-9 opacity-100"}`}>
-        <div className="pink-sheen flex h-9 items-center justify-center bg-[linear-gradient(90deg,#e60077,#ff1689,#d8a83d,#ff1689)] px-4 text-center text-xs font-semibold text-white">
+        <div className="pink-sheen flex h-9 items-center justify-center bg-topbar-gradient px-4 text-center text-xs font-semibold text-on-accent">
           <span className="truncate">Frete grátis acima de R$ 299 · Novidades glam toda semana</span>
         </div>
       </div>
