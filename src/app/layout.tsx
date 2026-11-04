@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "./themes.css";
 import { CartProvider } from "@/components/cart/CartProvider";
@@ -6,8 +7,15 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import { brandFaviconPath } from "@/lib/brand-assets";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
+import { themeInitScript } from "@/lib/theme";
+
+// preload: false → o navegador só baixa a fonte quando o tema ativo a usa.
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -51,15 +59,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
-      <body>
-        <CartProvider>
-          <Header />
-          <main className="site-main">{children}</main>
-          <Footer />
-          <WhatsAppButton />
-          <CookieBanner />
-        </CartProvider>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
+      </head>
+      <body className={`${inter.variable} ${playfair.variable}`}>
+        <ThemeProvider>
+          <CartProvider>
+            <Header />
+            <main className="site-main">{children}</main>
+            <Footer />
+            <WhatsAppButton />
+            <CookieBanner />
+          </CartProvider>
+          <ThemeSwitcher />
+        </ThemeProvider>
       </body>
     </html>
   );
