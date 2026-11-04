@@ -19,14 +19,8 @@ export async function POST(request: NextRequest) {
   if (!parsed.success) return NextResponse.json({ error: "Dados inválidos." }, { status: 400 });
   if (!isStrongPassword(parsed.data.password)) return NextResponse.json({ error: "Senha não atende aos requisitos." }, { status: 400 });
 
-  const passwordHash = await hashPassword(parsed.data.password);
-  console.info("[auth:mock] user registration ready for Prisma", {
-    name: parsed.data.name,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
-    passwordHashPreview: passwordHash.slice(0, 18)
-  });
-
+  // Valida o custo do hash; a persistência (e o hash gravado) vêm com o banco. Nada de dados pessoais nos logs.
+  await hashPassword(parsed.data.password);
   return NextResponse.json({
     message: "Cadastro validado. Conecte o Prisma para persistir usuário, enviar validação de e-mail e iniciar sessão segura."
   });

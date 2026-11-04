@@ -5,15 +5,19 @@ import { sendAdminSaleEmail } from "./integrations/email";
 import { requestInvoiceIssue } from "./integrations/fiscal";
 import { createPaymentIntent } from "./integrations/payment";
 import { sendAdminWhatsApp } from "./integrations/whatsapp";
+import { generateOrderNumber } from "./order-number";
+
+/** Erro com mensagem segura para mostrar ao cliente. */
+export class CheckoutError extends Error {}
 
 export async function createCheckoutOrder(payload: CheckoutPayload) {
   const pricing = calculateCartPricing(payload.items, payload.couponCode, payload.shippingOptionId);
 
   if (!pricing.lines.length) {
-    throw new Error("Carrinho vazio ou itens indisponíveis.");
+    throw new CheckoutError("Carrinho vazio ou itens indisponíveis.");
   }
 
-  const orderNumber = `BC${Date.now().toString().slice(-8)}`;
+  const orderNumber = generateOrderNumber();
   const customerName = `${payload.customer.firstName} ${payload.customer.lastName}`.trim();
   const paymentIntent = await createPaymentIntent({
     orderNumber,

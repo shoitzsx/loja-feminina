@@ -8,7 +8,7 @@ export type FiscalIssueInput = {
 
 export async function requestInvoiceIssue(input: FiscalIssueInput) {
   if (!process.env.FISCAL_API_KEY) {
-    console.info("[fiscal:pending] Invoice issue queued", input);
+    console.info("[fiscal:pending] Emissão na fila", { orderNumber: input.orderNumber });
     return {
       provider: process.env.FISCAL_PROVIDER ?? "pending",
       status: "PENDING",

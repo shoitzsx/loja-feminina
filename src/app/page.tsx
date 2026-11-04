@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/json-ld";
 import { ArrowRight, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { CategoryCarousel } from "@/components/product/CategoryCarousel";
 import { ProductSections } from "@/components/product/ProductSections";
@@ -21,7 +22,7 @@ const structuredData = {
 export default function HomePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(structuredData) }} />
       <section className="relative isolate min-h-[620px] overflow-hidden bg-rosebrand-100 sm:min-h-[calc(100vh-120px)] sm:max-h-[780px]">
         <div className="hero-media absolute inset-0" role="img" aria-label="Coleção feminina Barb's Closet com roupas e acessórios em tons de rosa" />
         <div className="absolute inset-0 bg-gradient-to-r from-rosebrand-50 via-rosebrand-50/82 to-rosebrand-100/5" />

@@ -13,7 +13,7 @@ export type AdminSaleNotification = {
 
 export async function sendAdminSaleEmail(payload: AdminSaleNotification) {
   if (!process.env.EMAIL_API_KEY) {
-    console.info("[email:mock] New paid order", payload);
+    console.info("[email:mock] Novo pedido pago", { orderNumber: payload.orderNumber });
     return { provider: "mock", id: `email_${payload.orderNumber}` };
   }
 

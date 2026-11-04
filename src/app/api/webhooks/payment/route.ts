@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { verifyPaymentWebhook } from "@/server/integrations/payment";
+
+const paymentEventSchema = z.object({
+  type: z.string().max(100).optional(),
+  orderNumber: z.string().max(50).optional(),
+  paymentStatus: z.string().max(50).optional()
+});
 
 export async function POST(request: NextRequest) {
   const rawBody = await request.text();
@@ -9,11 +16,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Assinatura inválida." }, { status: 401 });
   }
 
-  const event = JSON.parse(rawBody) as {
-    type?: string;
-    orderNumber?: string;
-    paymentStatus?: string;
-  };
+  let parsed: z.SafeParseReturnType<unknown, z.infer<typeof paymentEventSchema>>;
+  try {
+    parsed = paymentEventSchema.safeParse(JSON.parse(rawBody));
+  } catch {
+    return NextResponse.json({ error: "Corpo inválido." }, { status: 400 });
+  }
+  if (!parsed.success) return NextResponse.json({ error: "Evento inválido." }, { status: 400 });
+  const event = parsed.data;
 
   if (event.type === "payment.confirmed" && event.paymentStatus === "PAID") {
     console.info("[payment:webhook] Confirmed paid order", event.orderNumber);

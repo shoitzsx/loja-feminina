@@ -2,7 +2,7 @@ import type { AdminSaleNotification } from "./email";
 
 export async function sendAdminWhatsApp(payload: AdminSaleNotification) {
   if (!process.env.WHATSAPP_ACCESS_TOKEN || !process.env.WHATSAPP_PHONE_NUMBER_ID) {
-    console.info("[whatsapp:mock] New paid order", payload);
+    console.info("[whatsapp:mock] Novo pedido pago", { orderNumber: payload.orderNumber });
     return { provider: "mock", id: `whatsapp_${payload.orderNumber}` };
   }
 
