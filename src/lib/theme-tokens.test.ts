@@ -77,6 +77,19 @@ describe("tokens de tema", () => {
     expect(themeBlock("vibrante")["hero-img"]).toContain("/images/novas/hero-novo.webp");
   });
 
+  it("editorial usa Playfair nos títulos e raio pequeno", () => {
+    const editorial = themeBlock("editorial");
+    expect(editorial["font-display"]).toContain("--font-playfair");
+    expect(parseFloat(editorial["radius-card"])).toBeLessThanOrEqual(4);
+    expect(parseFloat(editorial["radius-btn"])).toBeLessThanOrEqual(4);
+  });
+
+  it("editorial usa a imagem de fundo e o hero novos", () => {
+    const editorial = themeBlock("editorial");
+    expect(editorial["page-bg"]).toContain("/images/novas/fundo-editorial.webp");
+    expect(editorial["hero-img"]).toContain("/images/novas/hero-novo.webp");
+  });
+
   it("contraste AA (4,5:1) em todos os temas", () => {
     for (const id of THEME_IDS) {
       const t = themeBlock(id);

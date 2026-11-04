@@ -12,7 +12,7 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const base =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-bold transition duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0";
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-btn px-4 py-2 text-sm font-bold transition duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0";
 
 type ButtonProps = {
   href?: string;

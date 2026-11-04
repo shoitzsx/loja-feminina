@@ -59,11 +59,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
       </head>
-      <body className={`${inter.variable} ${playfair.variable}`}>
+      <body>
         <ThemeProvider>
           <CartProvider>
             <Header />

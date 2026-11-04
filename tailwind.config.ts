@@ -33,6 +33,10 @@ const config: Config = {
         accent: "rgb(var(--accent) / <alpha-value>)",
         "on-accent": "rgb(var(--on-accent) / <alpha-value>)"
       },
+      borderRadius: {
+        lg: "var(--radius-card)",
+        btn: "var(--radius-btn)"
+      },
       boxShadow: {
         soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
