@@ -65,6 +65,18 @@ describe("tokens de tema", () => {
     }
   });
 
+  it("nenhum tema usa o degradê de triângulos", () => {
+    const globals = readFileSync("src/app/globals.css", "utf8");
+    for (const source of [css, globals]) {
+      expect(source).not.toContain("rgba(255, 22, 137, 0.08) 0 12%");
+    }
+    expect(themeBlock("vibrante")["page-bg-size"]).toBe("auto");
+  });
+
+  it("o hero do vibrante usa a imagem nova", () => {
+    expect(themeBlock("vibrante")["hero-img"]).toContain("/images/novas/hero-novo.webp");
+  });
+
   it("contraste AA (4,5:1) em todos os temas", () => {
     for (const id of THEME_IDS) {
       const t = themeBlock(id);

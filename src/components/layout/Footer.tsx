@@ -28,7 +28,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className={`footer-reveal mt-16 border-t border-rosebrand-200 bg-rosebrand-50/95 ${visible ? "is-visible" : ""}`}>
+    <footer ref={footerRef} className={`footer-reveal theme-band mt-16 border-t border-rosebrand-200 bg-rosebrand-50/95 ${visible ? "is-visible" : ""}`}>
       <div className="container-shell grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr_1fr]">
         <section className="transition duration-200 hover:-translate-y-0.5">
           <Logo />

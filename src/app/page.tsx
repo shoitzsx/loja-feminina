@@ -1,5 +1,4 @@
 import { ArrowRight, ShieldCheck, Sparkles, Truck } from "lucide-react";
-import Image from "next/image";
 import { CategoryCarousel } from "@/components/product/CategoryCarousel";
 import { ProductSections } from "@/components/product/ProductSections";
 import { Button } from "@/components/ui/Button";
@@ -23,7 +22,7 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="relative isolate min-h-[620px] overflow-hidden bg-rosebrand-100 sm:min-h-[calc(100vh-120px)] sm:max-h-[780px]">
-        <Image src="/images/hero/barbs-closet-hero.png" alt="Coleção feminina Barb's Closet com roupas e acessórios em tons de rosa" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="hero-media absolute inset-0" role="img" aria-label="Coleção feminina Barb's Closet com roupas e acessórios em tons de rosa" />
         <div className="absolute inset-0 bg-gradient-to-r from-rosebrand-50 via-rosebrand-50/82 to-rosebrand-100/5" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-rosebrand-100/80 to-transparent" />
         <div className="container-shell relative flex min-h-[620px] items-center py-14 sm:min-h-[calc(100vh-120px)] sm:max-h-[780px]">

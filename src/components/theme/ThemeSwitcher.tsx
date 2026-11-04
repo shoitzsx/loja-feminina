@@ -12,7 +12,7 @@ export function ThemeSwitcher() {
     <div
       role="group"
       aria-label="Escolher tema visual"
-      className="fixed bottom-5 left-5 z-40 flex flex-col gap-1 rounded-xl border border-rosebrand-200 bg-surface/95 p-2 text-xs font-bold shadow-card backdrop-blur"
+      className="fixed right-3 top-1/2 z-40 -translate-y-1/2 flex flex-col gap-1 rounded-xl border border-rosebrand-200 bg-surface/95 p-2 text-xs font-bold shadow-card backdrop-blur"
     >
       <span className="px-2 pt-1 text-[10px] uppercase tracking-wide text-muted">Tema</span>
       {THEME_IDS.map((id) => (

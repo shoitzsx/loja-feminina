@@ -38,11 +38,10 @@
   --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --page-bg:
-    linear-gradient(135deg, rgba(255, 22, 137, 0.08) 0 12%, transparent 12% 28%, rgba(216, 168, 61, 0.07) 28% 38%, transparent 38% 100%),
-    linear-gradient(180deg, #fff0f8 0%, #ffd9ed 36%, #fff5fb 72%, #ffe6f3 100%);
-  --page-bg-size: 180px 180px, auto;
-  --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --page-bg: linear-gradient(180deg, #fff0f8 0%, #ffe3f1 40%, #fff5fb 75%, #ffeaf5 100%);
+  --page-bg-size: auto;
+  --hero-img: url("/images/novas/hero-novo.webp");
+  --band-img: url("/images/novas/fundo-vibrante.webp");
 
   --brand-gradient: linear-gradient(135deg, #ff1689, #ff4fac, #e60077);
   --topbar-gradient: linear-gradient(90deg, #e60077, #ff1689, #d8a83d, #ff1689);
@@ -85,6 +84,7 @@
   --page-bg: linear-gradient(180deg, #faf6f1 0%, #f5eee7 100%);
   --page-bg-size: auto;
   --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #b76e79, #c98b94, #9a5560);
   --topbar-gradient: linear-gradient(90deg, #9a5560, #b76e79, #b8985a, #b76e79);
@@ -127,6 +127,7 @@
   --page-bg: linear-gradient(180deg, #f6e3e0 0%, #f9ece9 100%);
   --page-bg-size: auto;
   --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #c9707a, #dc8f98, #a8505c);
   --topbar-gradient: linear-gradient(90deg, #a8505c, #c9707a, #be8c64, #c9707a);
@@ -170,6 +171,7 @@
   --page-bg: linear-gradient(180deg, #1a0a12 0%, #230d19 100%);
   --page-bg-size: auto;
   --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #e0a458, #f0c27c, #c98a3c);
   --topbar-gradient: linear-gradient(90deg, #2a1220, #e0a458, #2a1220);

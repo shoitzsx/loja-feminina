@@ -33,6 +33,19 @@ body {
   background-image: var(--toast-gradient);
 }
 
+.hero-media {
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Faixa decorativa suave: imagem do tema sob um véu da cor de superfície. */
+.theme-band {
+  background-image: linear-gradient(rgb(var(--rb-50) / 0.9), rgb(var(--rb-50) / 0.95)), var(--band-img, none);
+  background-size: cover;
+  background-position: center;
+}
+
 html {
   scroll-padding-top: var(--header-height);
 }
