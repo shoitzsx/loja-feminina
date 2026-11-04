@@ -19,7 +19,7 @@ export function CartView() {
       <section className="container-shell py-12">
         <div className="glam-panel rounded-lg p-8 text-center">
           <h1 className="text-2xl font-black text-ink">Seu carrinho está vazio</h1>
-          <p className="mt-3 text-neutral-600">Escolha uma peça especial e volte para finalizar sua compra.</p>
+          <p className="mt-3 text-muted">Escolha uma peça especial e volte para finalizar sua compra.</p>
           <Button href="/produtos" className="mt-5">
             Continuar comprando
           </Button>
@@ -40,14 +40,14 @@ export function CartView() {
                 <Link href={`/produto/${line.slug}`} className="font-black text-ink hover:text-rosebrand-600">
                   {line.name}
                 </Link>
-                <p className="mt-1 text-sm text-neutral-500">
+                <p className="mt-1 text-sm text-muted">
                   SKU {line.sku} · {line.size ?? "Único"} · {line.color ?? "Cor padrão"}
                 </p>
                 <p className="mt-2 text-sm font-bold text-rosebrand-700">{formatMoney(line.unitPrice)}</p>
                 {line.stock <= 3 && <p className="mt-1 text-xs font-bold text-rosebrand-600">Últimas unidades em estoque</p>}
               </div>
               <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
-                <div className="flex h-10 items-center rounded-lg border border-rosebrand-200 bg-white/70">
+                <div className="flex h-10 items-center rounded-lg border border-rosebrand-200 bg-surface/70">
                   <button onClick={() => updateQuantity(line.variantId, line.quantity - 1)} className="grid size-10 place-items-center hover:bg-rosebrand-100" aria-label="Diminuir quantidade">
                     <Minus className="size-4" />
                   </button>
@@ -56,7 +56,7 @@ export function CartView() {
                     <Plus className="size-4" />
                   </button>
                 </div>
-                <button onClick={() => removeItem(line.variantId)} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-neutral-500 hover:bg-rosebrand-100 hover:text-rosebrand-700">
+                <button onClick={() => removeItem(line.variantId)} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-muted hover:bg-rosebrand-100 hover:text-rosebrand-700">
                   <Trash2 className="size-4" />
                   Excluir
                 </button>
@@ -67,16 +67,15 @@ export function CartView() {
       </div>
       <aside className="glam-panel h-fit rounded-lg p-5">
         <h2 className="text-lg font-black text-ink">Resumo</h2>
-        <label className="mt-4 block text-sm font-bold text-neutral-700" htmlFor="coupon">
+        <label className="mt-4 block text-sm font-bold text-ink/80" htmlFor="coupon">
           Cupom
         </label>
         <div className="mt-2 flex gap-2">
-          <input id="coupon" value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())} placeholder="BARBS10" className="h-11 min-w-0 flex-1 rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm" />
+          <input id="coupon" value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())} placeholder="BARBS10" className="h-11 min-w-0 flex-1 rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm" />
         </div>
         {pricing.couponMessage && <p className="mt-2 text-xs font-bold text-rosebrand-700">{pricing.couponMessage}</p>}
         <dl className="mt-5 grid gap-3 text-sm">
           <SummaryLine label="Subtotal" value={formatMoney(pricing.subtotal)} />
-          <SummaryLine label="Desconto de produtos" value={`-${formatMoney(pricing.productDiscount)}`} />
           <SummaryLine label="Cupom" value={`-${formatMoney(pricing.couponDiscount)}`} />
           <SummaryLine label="Frete estimado" value={pricing.shipping === 0 ? "Grátis" : formatMoney(pricing.shipping)} />
           <div className="mt-2 flex items-center justify-between border-t border-rosebrand-100 pt-4 text-base font-black">
@@ -84,6 +83,9 @@ export function CartView() {
             <dd>{formatMoney(pricing.total)}</dd>
           </div>
         </dl>
+        {pricing.productDiscount > 0 && (
+          <p className="mt-3 text-xs font-bold text-rosebrand-700">Você economizou {formatMoney(pricing.productDiscount)} nas promoções.</p>
+        )}
         <Button href="/checkout" className="mt-5 w-full">
           Finalizar compra
         </Button>
@@ -97,7 +99,7 @@ export function CartView() {
 
 function SummaryLine({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between text-neutral-600">
+    <div className="flex items-center justify-between text-muted">
       <dt>{label}</dt>
       <dd className="font-bold text-ink">{value}</dd>
     </div>

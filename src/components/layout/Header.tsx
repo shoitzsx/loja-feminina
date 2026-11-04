@@ -185,7 +185,7 @@ export function Header() {
       className="fixed inset-x-0 top-0 z-40 border-b border-rosebrand-200 bg-rosebrand-50/98 shadow-card"
     >
       <div className={`overflow-hidden transition-[max-height,opacity] duration-[250ms] ease-in-out ${isCompact ? "max-h-0 opacity-0" : "max-h-9 opacity-100"}`}>
-        <div className="pink-sheen flex h-9 items-center justify-center bg-[linear-gradient(90deg,#e60077,#ff1689,#d8a83d,#ff1689)] px-4 text-center text-xs font-semibold text-white">
+        <div className="pink-sheen flex h-9 items-center justify-center bg-topbar-gradient px-4 text-center text-xs font-semibold text-on-accent">
           <span className="truncate">Frete grátis acima de R$ 299 · Novidades glam toda semana</span>
         </div>
       </div>
@@ -207,7 +207,7 @@ export function Header() {
           </Link>
           <Link href="/carrinho" aria-label="Carrinho" className="relative rounded-lg p-2 text-ink transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
             <ShoppingBag className="size-5" />
-            {count > 0 && <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-rosebrand-500 px-1 text-[11px] font-black text-white">{count}</span>}
+            {count > 0 && <span className="absolute -right-1 -top-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-rosebrand-500 px-1 text-[11px] font-black text-on-accent">{count}</span>}
           </Link>
         </nav>
       </div>
@@ -216,8 +216,8 @@ export function Header() {
         <SearchBox compact />
       </div>
 
-      <nav className={`hidden overflow-hidden bg-white/38 transition-[max-height,border-color,opacity] duration-[250ms] ease-in-out lg:block ${isCompact ? "max-h-0 border-t-0 border-transparent opacity-0" : "max-h-12 border-t border-rosebrand-100 opacity-100"}`}>
-        <div className="container-shell flex h-12 items-center gap-6 overflow-x-auto text-sm font-bold text-neutral-700">
+      <nav className={`hidden overflow-hidden bg-surface/38 transition-[max-height,border-color,opacity] duration-[250ms] ease-in-out lg:block ${isCompact ? "max-h-0 border-t-0 border-transparent opacity-0" : "max-h-12 border-t border-rosebrand-100 opacity-100"}`}>
+        <div className="container-shell flex h-12 items-center gap-6 overflow-x-auto text-sm font-bold text-ink/80">
           {navItems.map(([label, href]) => (
             <Link key={href} href={href} className="whitespace-nowrap rounded-lg px-2 py-2 transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
               {label}
@@ -229,7 +229,7 @@ export function Header() {
       {menuVisivel && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
           <div
-            className={`absolute inset-0 bg-ink/40 transition-opacity duration-[260ms] ease-out ${menuAberto ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 bg-black/40 transition-opacity duration-[260ms] ease-out ${menuAberto ? "opacity-100" : "opacity-0"}`}
             onClick={fecharMenuBackdrop}
             aria-hidden="true"
           />

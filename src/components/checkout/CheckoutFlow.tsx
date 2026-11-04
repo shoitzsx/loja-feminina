@@ -126,7 +126,7 @@ export function CheckoutFlow() {
             const Icon = item.icon;
             const active = item.id <= step;
             return (
-              <div key={item.id} className={active ? "pink-sheen rounded-lg bg-[linear-gradient(135deg,#ff1689,#ff5fb0,#e60077)] p-2 text-white shadow-card" : "rounded-lg bg-white/55 p-2 text-neutral-500"}>
+              <div key={item.id} className={active ? "pink-sheen rounded-lg bg-brand-gradient p-2 text-on-accent shadow-card" : "rounded-lg bg-surface/55 p-2 text-muted"}>
                 <Icon className="mx-auto size-5" />
                 <span className="mt-1 block truncate text-center text-[11px] font-black">{item.label}</span>
               </div>
@@ -164,10 +164,10 @@ export function CheckoutFlow() {
           <Panel title="Entrega">
             <div className="grid gap-3">
               {shippingOptions.map((option) => (
-                <label key={option.id} className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-white/55 p-4 transition hover:bg-rosebrand-100">
+                <label key={option.id} className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-surface/55 p-4 transition hover:bg-rosebrand-100">
                   <span>
                     <span className="block font-black text-ink">{option.label}</span>
-                    <span className="text-sm text-neutral-500">{option.estimate}</span>
+                    <span className="text-sm text-muted">{option.estimate}</span>
                   </span>
                   <span className="flex items-center gap-3 font-black text-rosebrand-700">
                     {pricing.subtotal >= 299 || option.price === 0 ? "Grátis" : formatMoney(option.price)}
@@ -181,7 +181,7 @@ export function CheckoutFlow() {
 
         {step === 4 && (
           <Panel title="Pagamento">
-            <p className="mb-4 text-sm leading-6 text-neutral-600">
+            <p className="mb-4 text-sm leading-6 text-muted">
               A arquitetura está pronta para tokenização pelo gateway. A loja nunca deve armazenar número completo de cartão nem CVV.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -191,7 +191,7 @@ export function CheckoutFlow() {
                 ["DEBIT_CARD", "Cartão de débito"],
                 ["BOLETO", "Boleto"]
               ].map(([value, label]) => (
-                <label key={value} className="flex cursor-pointer items-center justify-between rounded-lg border border-rosebrand-200 bg-white/55 p-4 font-bold transition hover:bg-rosebrand-100">
+                <label key={value} className="flex cursor-pointer items-center justify-between rounded-lg border border-rosebrand-200 bg-surface/55 p-4 font-bold transition hover:bg-rosebrand-100">
                   {label}
                   <input type="radio" checked={paymentMethod === value} onChange={() => setPaymentMethod(value as CheckoutPayload["paymentMethod"])} className="size-5 accent-rosebrand-500" />
                 </label>
@@ -205,7 +205,7 @@ export function CheckoutFlow() {
             <div className="rounded-lg bg-rosebrand-100 p-5 shadow-card">
               <CheckCircle2 className="size-10 text-rosebrand-600" />
               <p className="mt-3 text-xl font-black text-ink">Pedido {confirmation.orderNumber}</p>
-              <p className="mt-2 text-sm leading-6 text-neutral-600">{confirmation.message}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">{confirmation.message}</p>
             </div>
             <Button href="/meus-pedidos" className="mt-5">
               Acompanhar pedido
@@ -233,7 +233,7 @@ export function CheckoutFlow() {
               <Image src={line.image} alt="" width={56} height={56} className="aspect-square rounded object-cover" />
               <div>
                 <p className="text-sm font-bold text-ink">{line.name}</p>
-                <p className="text-xs text-neutral-500">{line.quantity}x · {line.size}</p>
+                <p className="text-xs text-muted">{line.quantity}x · {line.size}</p>
               </div>
               <p className="text-sm font-black text-rosebrand-700">{formatMoney(line.subtotal)}</p>
             </div>
@@ -241,18 +241,21 @@ export function CheckoutFlow() {
         </div>
         <label className="mt-5 block text-sm font-bold text-ink">
           Cupom
-          <input value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3" placeholder="BARBS10" />
+          <input value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3" placeholder="BARBS10" />
         </label>
         {pricing.couponMessage && <p className="mt-2 text-xs font-bold text-rosebrand-700">{pricing.couponMessage}</p>}
         <dl className="mt-5 grid gap-2 text-sm">
           <Summary label="Subtotal" value={formatMoney(pricing.subtotal)} />
-          <Summary label="Descontos" value={`-${formatMoney(pricing.productDiscount + pricing.couponDiscount)}`} />
+          <Summary label="Cupom" value={`-${formatMoney(pricing.couponDiscount)}`} />
           <Summary label="Frete" value={pricing.shipping === 0 ? "Grátis" : formatMoney(pricing.shipping)} />
           <div className="mt-3 flex justify-between border-t border-rosebrand-100 pt-4 text-base font-black">
             <dt>Total</dt>
             <dd>{formatMoney(pricing.total)}</dd>
           </div>
         </dl>
+        {pricing.productDiscount > 0 && (
+          <p className="mt-3 text-xs font-bold text-rosebrand-700">Você economizou {formatMoney(pricing.productDiscount)} nas promoções.</p>
+        )}
       </aside>
     </section>
   );
@@ -289,7 +292,7 @@ function Field({
   return (
     <label className={className}>
       <span className="text-sm font-bold text-ink">{label}</span>
-      <input type={type} value={value} onChange={(event) => onChange(event.target.value)} onBlur={onBlur} required={required} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm" />
+      <input type={type} value={value} onChange={(event) => onChange(event.target.value)} onBlur={onBlur} required={required} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm" />
       {helper && <span className="mt-1 block text-xs font-bold text-rosebrand-600">{helper}</span>}
     </label>
   );
@@ -297,7 +300,7 @@ function Field({
 
 function Summary({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between text-neutral-600">
+    <div className="flex justify-between text-muted">
       <dt>{label}</dt>
       <dd className="font-bold text-ink">{value}</dd>
     </div>

@@ -96,7 +96,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     <CartContext.Provider value={value}>
       {children}
       {toast && (
-        <div className="fixed bottom-24 left-1/2 z-50 animate-soft-pop -translate-x-1/2 rounded-lg bg-[linear-gradient(135deg,#ff1689,#5a1238)] px-4 py-3 text-sm font-bold text-white shadow-glow" role="status">
+        <div className="fixed bottom-24 left-1/2 z-50 animate-soft-pop -translate-x-1/2 rounded-lg bg-toast-gradient px-4 py-3 text-sm font-bold text-on-accent shadow-glow" role="status">
           {toast}
         </div>
       )}

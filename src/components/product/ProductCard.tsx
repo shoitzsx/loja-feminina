@@ -40,22 +40,22 @@ export function ProductCard({ product }: { product: Product }) {
             <Link href={`/produto/${product.slug}`} className="line-clamp-2 text-sm font-black text-ink hover:text-rosebrand-600">
               {product.name}
             </Link>
-            <p className="mt-1 text-xs text-neutral-500">{product.categoryName} · {product.collection}</p>
+            <p className="mt-1 text-xs text-muted">{product.categoryName} · {product.collection}</p>
           </div>
           <button
             onClick={() => setFavorite((current) => !current)}
-            className="grid size-9 shrink-0 place-items-center rounded-lg border border-rosebrand-200 bg-white/60 text-rosebrand-700 transition hover:bg-rosebrand-100"
+            className="grid size-9 shrink-0 place-items-center rounded-lg border border-rosebrand-200 bg-surface/60 text-rosebrand-700 transition hover:bg-rosebrand-100"
             aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
           >
             <Heart className={favorite ? "size-4 fill-rosebrand-500" : "size-4"} />
           </button>
         </div>
-        <div className="mt-3 flex items-center gap-1 text-xs font-bold text-neutral-600">
+        <div className="mt-3 flex items-center gap-1 text-xs font-bold text-muted">
           <Star className="size-4 fill-champagne text-champagne" />
           {product.rating.toFixed(1)} · {product.reviews} avaliações
         </div>
         <div className="mt-3 flex flex-wrap items-end gap-2">
-          {product.salePrice && <span className="text-xs text-neutral-400 line-through">{formatMoney(product.price)}</span>}
+          {product.salePrice && <span className="text-xs text-muted line-through">{formatMoney(product.price)}</span>}
           <span className="text-lg font-black text-rosebrand-700">{formatMoney(price)}</span>
           {salePercent > 0 && <span className="text-xs font-black text-rosebrand-600">-{salePercent}%</span>}
         </div>

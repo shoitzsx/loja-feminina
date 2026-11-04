@@ -27,7 +27,7 @@ function ContactCard({ icon, title, text, action }: { icon: React.ReactNode; tit
     <article className="glam-panel glam-hover rounded-lg p-5">
       <div className="text-rosebrand-600">{icon}</div>
       <h2 className="mt-4 text-lg font-black text-ink">{title}</h2>
-      <p className="mt-2 text-sm leading-6 text-neutral-600">{text}</p>
+      <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
       {action && <div className="mt-4">{action}</div>}
     </article>
   );

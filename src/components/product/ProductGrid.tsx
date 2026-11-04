@@ -6,7 +6,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
     return (
       <div className="glam-panel rounded-lg p-8 text-center">
         <p className="font-bold text-ink">Nenhum produto encontrado.</p>
-        <p className="mt-2 text-sm text-neutral-600">Tente ajustar os filtros ou buscar outro termo.</p>
+        <p className="mt-2 text-sm text-muted">Tente ajustar os filtros ou buscar outro termo.</p>
       </div>
     );
   }

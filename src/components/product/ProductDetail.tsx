@@ -50,23 +50,23 @@ export function ProductDetail({ product }: { product: Product }) {
         <div>
           <p className="text-xs font-black uppercase text-rosebrand-600">{product.categoryName} · {product.collection}</p>
           <h1 className="mt-2 text-3xl font-black leading-tight text-ink">{product.name}</h1>
-          <p className="mt-2 text-sm text-neutral-500">SKU {product.sku}</p>
-          <div className="mt-3 flex items-center gap-2 text-sm font-bold text-neutral-700">
+          <p className="mt-2 text-sm text-muted">SKU {product.sku}</p>
+          <div className="mt-3 flex items-center gap-2 text-sm font-bold text-ink/80">
             <Star className="size-5 fill-champagne text-champagne" />
             {product.rating.toFixed(1)} · {product.reviews} avaliações
           </div>
           <div className="mt-5 flex flex-wrap items-end gap-3">
-            {product.salePrice && <span className="text-base text-neutral-400 line-through">{formatMoney(product.price)}</span>}
+            {product.salePrice && <span className="text-base text-muted line-through">{formatMoney(product.price)}</span>}
             <span className="text-4xl font-black text-rosebrand-700">{formatMoney(price)}</span>
             {percent > 0 && <Badge>Promoção</Badge>}
           </div>
-          <p className="mt-2 text-sm font-bold text-neutral-600">{installmentText(price)}</p>
-          <p className="mt-5 leading-7 text-neutral-700">{product.description}</p>
+          <p className="mt-2 text-sm font-bold text-muted">{installmentText(price)}</p>
+          <p className="mt-5 leading-7 text-ink/80">{product.description}</p>
 
           <div className="mt-6 grid gap-4">
             <label className="block">
               <span className="text-sm font-black text-ink">Variação</span>
-              <select value={variantId} onChange={(event) => setVariantId(event.target.value)} className="mt-2 h-12 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 font-bold shadow-card">
+              <select value={variantId} onChange={(event) => setVariantId(event.target.value)} className="mt-2 h-12 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 font-bold shadow-card">
                 {product.variants.map((item) => (
                   <option key={item.id} value={item.id} disabled={item.stock <= 0}>
                     {item.size ?? "Único"} · {item.color ?? product.colors[0]} · {item.material} · {item.stock} em estoque
@@ -76,7 +76,7 @@ export function ProductDetail({ product }: { product: Product }) {
             </label>
             <label className="block">
               <span className="text-sm font-black text-ink">Quantidade</span>
-              <input type="number" min={1} max={variant?.stock ?? 1} value={quantity} onChange={(event) => setQuantity(Number(event.target.value))} className="mt-2 h-12 w-28 rounded-lg border border-rosebrand-200 bg-white/80 px-3 font-bold shadow-card" />
+              <input type="number" min={1} max={variant?.stock ?? 1} value={quantity} onChange={(event) => setQuantity(Number(event.target.value))} className="mt-2 h-12 w-28 rounded-lg border border-rosebrand-200 bg-surface/80 px-3 font-bold shadow-card" />
             </label>
           </div>
 
@@ -128,7 +128,7 @@ function Spec({ title, items }: { title: string; items: string[] }) {
   return (
     <div>
       <h2 className="text-sm font-black uppercase text-ink">{title}</h2>
-      <ul className="mt-2 grid gap-1 text-sm text-neutral-600">
+      <ul className="mt-2 grid gap-1 text-sm text-muted">
         {items.map((item) => (
           <li key={item}>• {item}</li>
         ))}

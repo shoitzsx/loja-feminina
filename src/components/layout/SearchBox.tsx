@@ -32,11 +32,11 @@ export function SearchBox({ compact = false }: { compact?: boolean }) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={compact ? "Buscar" : "Buscar colar prata, SKU, coleção..."}
-          className="h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 pl-10 pr-10 text-sm shadow-card transition placeholder:text-neutral-400 hover:border-rosebrand-400 hover:bg-white"
+          className="h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 pl-10 pr-10 text-sm shadow-card transition placeholder:text-muted hover:border-rosebrand-400 hover:bg-surface"
           autoComplete="off"
         />
         {query && (
-          <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-neutral-500 hover:bg-rosebrand-100" aria-label="Limpar busca">
+          <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-muted hover:bg-rosebrand-100" aria-label="Limpar busca">
             <X className="size-4" />
           </button>
         )}
@@ -48,7 +48,7 @@ export function SearchBox({ compact = false }: { compact?: boolean }) {
               <Image src={product.images[0]} alt="" width={48} height={48} className="h-12 w-12 rounded object-cover" />
               <span>
                 <span className="block text-sm font-bold text-ink">{product.name}</span>
-                <span className="block text-xs text-neutral-500">{product.categoryName} · {product.sku}</span>
+                <span className="block text-xs text-muted">{product.categoryName} · {product.sku}</span>
               </span>
             </Link>
           ))}

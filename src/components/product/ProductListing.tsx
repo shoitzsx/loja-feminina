@@ -55,7 +55,7 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
       </label>
       <label className="block">
         <span className="text-sm font-bold text-ink">Tamanho</span>
-        <select value={size} onChange={(event) => setSize(event.target.value)} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm">
+        <select value={size} onChange={(event) => setSize(event.target.value)} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm">
           <option value="">Todos</option>
           {["P", "M", "G", "GG", "Único"].map((option) => (
             <option key={option}>{option}</option>
@@ -64,7 +64,7 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
       </label>
       <label className="block">
         <span className="text-sm font-bold text-ink">Material</span>
-        <select value={material} onChange={(event) => setMaterial(event.target.value)} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm">
+        <select value={material} onChange={(event) => setMaterial(event.target.value)} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm">
           <option value="">Todos</option>
           <option value="prata">Prata</option>
           <option value="ouro">Ouro</option>
@@ -83,7 +83,7 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
         <div>
           <p className="text-xs font-black uppercase text-rosebrand-600">Barb’s Closet</p>
           <h1 className="mt-1 text-3xl font-black text-ink">{title}</h1>
-          {subtitle && <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">{subtitle}</p>}
+          {subtitle && <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{subtitle}</p>}
         </div>
         <div className="flex gap-2">
           <button className="inline-flex h-11 items-center gap-2 rounded-lg border border-rosebrand-200 bg-rosebrand-50/90 px-4 text-sm font-bold shadow-card transition hover:bg-rosebrand-100 lg:hidden" onClick={() => setDrawerOpen(true)}>
@@ -104,13 +104,13 @@ export function ProductListing({ products, title, subtitle, initialQuery = "" }:
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
         <aside className="glam-panel hidden h-fit rounded-lg p-5 lg:block">{filters}</aside>
         <div>
-          <p className="mb-4 text-sm font-bold text-neutral-600">{filtered.length} produto(s) encontrado(s)</p>
+          <p className="mb-4 text-sm font-bold text-muted">{filtered.length} produto(s) encontrado(s)</p>
           <ProductGrid products={filtered} />
         </div>
       </div>
       {drawerOpen && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
-          <button className="absolute inset-0 bg-ink/40" onClick={() => setDrawerOpen(false)} aria-label="Fechar filtros" />
+          <button className="absolute inset-0 bg-black/40" onClick={() => setDrawerOpen(false)} aria-label="Fechar filtros" />
           <div className="absolute bottom-0 left-0 right-0 max-h-[88vh] overflow-y-auto rounded-t-lg bg-rosebrand-50/95 p-5 shadow-soft">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-black">Filtros</h2>
@@ -133,14 +133,14 @@ function FilterText({ label, value, onChange, placeholder }: { label: string; va
   return (
     <label className="block">
       <span className="text-sm font-bold text-ink">{label}</span>
-      <input value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm" />
+      <input value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm" />
     </label>
   );
 }
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
   return (
-    <label className="flex items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-white/45 px-3 py-3 text-sm font-bold text-ink">
+    <label className="flex items-center justify-between gap-3 rounded-lg border border-rosebrand-200 bg-surface/45 px-3 py-3 text-sm font-bold text-ink">
       {label}
       <input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} className="size-5 accent-rosebrand-500" />
     </label>

@@ -14,7 +14,7 @@ export function AccountDashboard() {
   return (
     <section className="container-shell py-8">
       <h1 className="text-3xl font-black text-ink">Minha Conta</h1>
-      <p className="mt-2 text-sm text-neutral-600">Área preparada para sessão persistente, pedidos, favoritos e endereços salvos.</p>
+      <p className="mt-2 text-sm text-muted">Área preparada para sessão persistente, pedidos, favoritos e endereços salvos.</p>
       <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {accountItems.map((item) => {
           const Icon = item.icon;
@@ -22,7 +22,7 @@ export function AccountDashboard() {
             <a key={item.label} href={item.href} className="glam-panel glam-hover rounded-lg p-5">
               <Icon className="size-6 text-rosebrand-600" />
               <h2 className="mt-4 text-lg font-black text-ink">{item.label}</h2>
-              <p className="mt-2 text-sm leading-6 text-neutral-600">{item.detail}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">{item.detail}</p>
             </a>
           );
         })}

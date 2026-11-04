@@ -8,7 +8,7 @@ export function PolicyPage({ title, sections }: { title: string; sections: Array
         {sections.map(([heading, text]) => (
           <article key={heading} className="glam-panel glam-hover rounded-lg p-5">
             <h2 className="text-lg font-black text-ink">{heading}</h2>
-            <p className="mt-2 text-sm leading-7 text-neutral-600">{text}</p>
+            <p className="mt-2 text-sm leading-7 text-muted">{text}</p>
           </article>
         ))}
       </section>
