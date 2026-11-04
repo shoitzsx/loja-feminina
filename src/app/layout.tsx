@@ -7,15 +7,11 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import { brandFaviconPath } from "@/lib/brand-assets";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
-import { themeInitScript } from "@/lib/theme";
 
-// preload: false → o navegador só baixa a fonte quando o tema ativo a usa.
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap", preload: false });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -59,21 +55,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
-      </head>
+    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
       <body>
-        <ThemeProvider>
-          <CartProvider>
-            <Header />
-            <main className="site-main">{children}</main>
-            <Footer />
-            <WhatsAppButton />
-            <CookieBanner />
-          </CartProvider>
-          <ThemeSwitcher />
-        </ThemeProvider>
+        <CartProvider>
+          <Header />
+          <main className="site-main">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+          <CookieBanner />
+        </CartProvider>
       </body>
     </html>
   );

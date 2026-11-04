@@ -1,17 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { dprFor, shouldRender3D } from "./hero3d-config";
 
-const ok = { theme: "vitrine-3d", prefersReducedMotion: false, hasWebGL: true } as const;
+const ok = { prefersReducedMotion: false, hasWebGL: true } as const;
 
 describe("shouldRender3D", () => {
-  it("renderiza no tema vitrine-3d com WebGL e movimento normal", () => {
+  it("renderiza com WebGL e movimento normal", () => {
     expect(shouldRender3D(ok)).toBe(true);
-  });
-
-  it("não renderiza nos outros temas", () => {
-    for (const theme of ["vibrante", "editorial", "escuro"] as const) {
-      expect(shouldRender3D({ ...ok, theme }), theme).toBe(false);
-    }
   });
 
   it("não renderiza com movimento reduzido", () => {

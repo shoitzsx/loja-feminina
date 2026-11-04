@@ -4,9 +4,8 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { shouldRender3D } from "@/lib/hero3d-config";
 import { Hero3DBoundary } from "./Hero3DBoundary";
-import { useTheme } from "./ThemeProvider";
 
-// Three.js só é baixado quando o tema vitrine-3d está ativo.
+// Three.js é carregado sob demanda, só quando o 3D pode rodar.
 const Hero3D = dynamic(() => import("./Hero3D"), { ssr: false });
 
 function detectWebGL(): boolean {
@@ -21,7 +20,6 @@ function detectWebGL(): boolean {
 }
 
 export function Hero3DLoader() {
-  const { theme } = useTheme();
   const [env, setEnv] = useState<{ reducedMotion: boolean; webgl: boolean } | null>(null);
   const [failed, setFailed] = useState(false);
 
@@ -33,7 +31,7 @@ export function Hero3DLoader() {
   }, []);
 
   if (!env || failed) return null;
-  if (!shouldRender3D({ theme, prefersReducedMotion: env.reducedMotion, hasWebGL: env.webgl })) return null;
+  if (!shouldRender3D({ prefersReducedMotion: env.reducedMotion, hasWebGL: env.webgl })) return null;
 
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
