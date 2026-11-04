@@ -3,6 +3,7 @@ import { checkoutSchema } from "@/lib/checkout-schema";
 import { CheckoutError, createCheckoutOrder } from "@/server/order";
 import { guardAuth } from "@/server/auth-guard";
 import { rateLimit } from "@/server/security";
+import { getSessionUser } from "@/server/supabase";
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for") ?? "local";
@@ -23,7 +24,9 @@ export async function POST(request: NextRequest) {
   if (blocked) return blocked;
 
   try {
-    const order = await createCheckoutOrder(orderData);
+    // O dono do pedido vem da sessão (cookie httpOnly), nunca do corpo da requisição.
+    const user = await getSessionUser().catch(() => null);
+    const order = await createCheckoutOrder(orderData, { userId: user?.id });
     return NextResponse.json({ order }, { status: 201 });
   } catch (error) {
     // Só mensagens pensadas para o cliente (CheckoutError) saem; o resto fica no log do servidor.

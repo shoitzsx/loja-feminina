@@ -5,12 +5,15 @@ import { sendAdminSaleEmail } from "./integrations/email";
 import { requestInvoiceIssue } from "./integrations/fiscal";
 import { createPaymentIntent } from "./integrations/payment";
 import { sendAdminWhatsApp } from "./integrations/whatsapp";
+import { encryptField } from "./crypto";
+import { getDb } from "./db";
 import { generateOrderNumber } from "./order-number";
+import { hashGuestToken, newGuestToken, saveOrder } from "./order-repo";
 
 /** Erro com mensagem segura para mostrar ao cliente. */
 export class CheckoutError extends Error {}
 
-export async function createCheckoutOrder(payload: CheckoutPayload) {
+export async function createCheckoutOrder(payload: CheckoutPayload, options: { userId?: string } = {}) {
   const pricing = calculateCartPricing(payload.items, payload.couponCode, payload.shippingOptionId);
 
   if (!pricing.lines.length) {
@@ -26,8 +29,35 @@ export async function createCheckoutOrder(payload: CheckoutPayload) {
     method: payload.paymentMethod
   });
 
+  // Com banco configurado, o pedido é gravado ANTES de responder (falha = erro, nunca "pedido fantasma").
+  // O dono é o usuário da sessão; sem sessão, o convidado recebe um token (só o hash fica no banco).
+  let guestToken: string | undefined;
+  const db = getDb();
+  if (db) {
+    guestToken = options.userId ? undefined : newGuestToken();
+    await saveOrder(db, {
+      orderNumber,
+      userId: options.userId ?? null,
+      guestTokenHash: guestToken ? hashGuestToken(guestToken) : null,
+      customerName,
+      customerEmail: payload.customer.email,
+      customerPhoneEncrypted: encryptField(payload.customer.phone),
+      shippingAddress: { ...payload.address },
+      shippingMethod: payload.shippingOptionId,
+      paymentMethod: payload.paymentMethod,
+      provider: paymentIntent.provider,
+      providerRef: paymentIntent.providerRef,
+      subtotal: pricing.subtotal,
+      discount: pricing.couponDiscount,
+      shipping: pricing.shipping,
+      total: pricing.total,
+      items: pricing.lines.map((line) => ({ slug: line.slug, name: line.name, sku: line.sku, size: line.size, color: line.color, quantity: line.quantity, unitPrice: line.unitPrice, subtotal: line.subtotal }))
+    });
+  }
+
   return {
     orderNumber,
+    guestToken,
     status: "PENDING_PAYMENT",
     customerName,
     pricing,

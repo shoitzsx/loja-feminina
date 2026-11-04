@@ -1,15 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { getDb } from "./db";
 import type { RateLimitStore } from "./rate-limit";
-
-const globalForPrisma = globalThis as unknown as { rateLimitPrisma?: PrismaClient };
 
 /** Contador atômico em public.rate_limits (uma única instrução, sem corrida entre instâncias). */
 export class PostgresRateLimitStore implements RateLimitStore {
-  private prisma = (globalForPrisma.rateLimitPrisma ??= new PrismaClient());
-
   async hit(key: string, windowMs: number) {
+    const prisma = getDb();
+    if (!prisma) throw new Error("DATABASE_URL ausente");
     const seconds = windowMs / 1000;
-    const rows = await this.prisma.$queryRaw<{ count: number; reset_at: Date }[]>`
+    const rows = await prisma.$queryRaw<{ count: number; reset_at: Date }[]>`
       insert into public.rate_limits as r (key, count, window_start)
       values (${key}, 1, now())
       on conflict (key) do update set

@@ -1,3 +1,7 @@
+// Espelha as tabelas criadas em supabase/migrations/ (fonte da verdade do banco).
+// O Prisma NÃO cria nem altera tabelas aqui: as migrações são o SQL versionado, com RLS.
+// O servidor conecta com o papel `closet_app` (privilégio mínimo) pela DATABASE_URL.
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -5,12 +9,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum UserRole {
-  CUSTOMER
-  ADMIN
-  STAFF
 }
 
 enum OrderStatus {
@@ -21,6 +19,8 @@ enum OrderStatus {
   DELIVERED
   CANCELED
   REFUNDED
+
+  @@map("order_status")
 }
 
 enum PaymentStatus {
@@ -30,386 +30,98 @@ enum PaymentStatus {
   FAILED
   CANCELED
   REFUNDED
+
+  @@map("payment_status")
 }
 
 enum PaymentMethod {
   PIX
   CREDIT_CARD
   DEBIT_CARD
-}
 
-enum InvoiceStatus {
-  PENDING
-  REQUESTED
-  ISSUED
-  FAILED
-  CANCELED
-}
-
-enum NotificationChannel {
-  EMAIL
-  WHATSAPP
-  SYSTEM
-}
-
-enum NotificationStatus {
-  PENDING
-  SENT
-  FAILED
-}
-
-model User {
-  id                String      @id @default(uuid()) @db.Uuid
-  name              String
-  email             String      @unique
-  phone             String?
-  passwordHash      String
-  role              UserRole    @default(CUSTOMER)
-  emailVerifiedAt   DateTime?
-  failedLoginCount  Int         @default(0)
-  lockedUntil       DateTime?
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  addresses         Address[]
-  carts             Cart[]
-  orders            Order[]
-  favorites         Favorite[]
-  reviews           Review[]
-  auditLogs         AuditLog[]
-}
-
-model Address {
-  id           String   @id @default(uuid()) @db.Uuid
-  userId       String   @db.Uuid
-  label        String?
-  firstName    String
-  lastName     String
-  cpf          String?
-  phone        String
-  zipCode      String
-  street       String
-  number       String
-  complement   String?
-  district     String
-  city         String
-  state        String
-  isDefault    Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orders       Order[]
-
-  @@index([userId])
-}
-
-model Category {
-  id          String     @id @default(uuid()) @db.Uuid
-  name        String
-  slug        String     @unique
-  description String?
-  imageUrl    String?
-  isActive    Boolean    @default(true)
-  parentId    String?    @db.Uuid
-  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children    Category[] @relation("CategoryHierarchy")
-  products    Product[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-}
-
-model Product {
-  id               String           @id @default(uuid()) @db.Uuid
-  categoryId       String           @db.Uuid
-  name             String
-  slug             String           @unique
-  sku              String           @unique
-  description      String
-  careInstructions String?
-  material         String?
-  color            String?
-  collection       String?
-  priceCents       Int
-  salePriceCents   Int?
-  isActive         Boolean          @default(true)
-  isFeatured       Boolean          @default(false)
-  isNew            Boolean          @default(false)
-  salesLast7Days   Int              @default(0)
-  ratingAverage    Decimal          @default(0)
-  ratingCount      Int              @default(0)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  category         Category         @relation(fields: [categoryId], references: [id])
-  images           ProductImage[]
-  variants         ProductVariant[]
-  favorites        Favorite[]
-  reviews          Review[]
-  orderItems       OrderItem[]
-  cartItems        CartItem[]
-  sizeCharts       SizeChart[]
-
-  @@index([categoryId])
-  @@index([slug])
-}
-
-model ProductImage {
-  id        String   @id @default(uuid()) @db.Uuid
-  productId String   @db.Uuid
-  url       String
-  alt       String
-  position  Int      @default(0)
-  createdAt DateTime @default(now())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@index([productId])
-}
-
-model ProductVariant {
-  id          String      @id @default(uuid()) @db.Uuid
-  productId   String      @db.Uuid
-  sku         String      @unique
-  size        String?
-  color       String?
-  material    String?
-  weightGrams Int?
-  dimensions  String?
-  isActive    Boolean     @default(true)
-  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-  inventory   Inventory?
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
-
-  @@index([productId])
-}
-
-model Inventory {
-  id             String         @id @default(uuid()) @db.Uuid
-  variantId      String         @unique @db.Uuid
-  quantity       Int            @default(0)
-  reserved       Int            @default(0)
-  lowStockAlert  Int            @default(3)
-  updatedAt      DateTime       @updatedAt
-  variant        ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
-}
-
-model Cart {
-  id        String     @id @default(uuid()) @db.Uuid
-  userId    String?    @db.Uuid
-  sessionId String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     CartItem[]
-
-  @@index([userId])
-  @@index([sessionId])
-}
-
-model CartItem {
-  id        String         @id @default(uuid()) @db.Uuid
-  cartId    String         @db.Uuid
-  productId String         @db.Uuid
-  variantId String         @db.Uuid
-  quantity  Int
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  product   Product        @relation(fields: [productId], references: [id])
-  variant   ProductVariant @relation(fields: [variantId], references: [id])
-
-  @@unique([cartId, variantId])
+  @@map("payment_method")
 }
 
 model Order {
-  id                  String      @id @default(uuid()) @db.Uuid
-  orderNumber         String      @unique
-  userId              String?     @db.Uuid
-  addressId           String?     @db.Uuid
-  customerName        String
-  customerEmail       String
-  customerPhone       String
-  status              OrderStatus @default(PENDING_PAYMENT)
-  subtotalCents       Int
-  discountCents       Int         @default(0)
-  shippingCents       Int         @default(0)
-  totalCents          Int
-  shippingMethod      String?
-  shippingEstimate    String?
-  couponCode          String?
-  paymentGatewayRef   String?
-  createdAt           DateTime    @default(now())
-  updatedAt           DateTime    @updatedAt
-  paidAt              DateTime?
-  user                User?       @relation(fields: [userId], references: [id])
-  address             Address?    @relation(fields: [addressId], references: [id])
-  items               OrderItem[]
-  payments            Payment[]
-  invoices            Invoice[]
-  notifications       Notification[]
+  id                    String      @id @default(uuid()) @db.Uuid
+  orderNumber           String      @unique @map("order_number")
+  userId                String?     @map("user_id") @db.Uuid
+  guestTokenHash        String?     @map("guest_token_hash")
+  customerName          String      @map("customer_name")
+  customerEmail         String      @map("customer_email")
+  customerPhoneEncrypted String?    @map("customer_phone_encrypted")
+  shippingAddress       Json?       @map("shipping_address")
+  status                OrderStatus @default(PENDING_PAYMENT)
+  subtotalCents         Int         @map("subtotal_cents")
+  discountCents         Int         @default(0) @map("discount_cents")
+  shippingCents         Int         @default(0) @map("shipping_cents")
+  totalCents            Int         @map("total_cents")
+  shippingMethod        String?     @map("shipping_method")
+  anonymizedAt          DateTime?   @map("anonymized_at") @db.Timestamptz(6)
+  createdAt             DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  paidAt                DateTime?   @map("paid_at") @db.Timestamptz(6)
+  items                 OrderItem[]
+  payments              Payment[]
 
   @@index([userId])
   @@index([status])
+  @@map("orders")
 }
 
 model OrderItem {
-  id             String         @id @default(uuid()) @db.Uuid
-  orderId        String         @db.Uuid
-  productId      String         @db.Uuid
-  variantId      String         @db.Uuid
-  productName    String
+  id             String @id @default(uuid()) @db.Uuid
+  orderId        String @map("order_id") @db.Uuid
+  productSlug    String @map("product_slug")
+  productName    String @map("product_name")
   sku            String
   size           String?
   color          String?
   quantity       Int
-  unitPriceCents Int
-  totalCents     Int
-  order          Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product        Product        @relation(fields: [productId], references: [id])
-  variant        ProductVariant @relation(fields: [variantId], references: [id])
+  unitPriceCents Int    @map("unit_price_cents")
+  totalCents     Int    @map("total_cents")
+  order          Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId])
+  @@map("order_items")
 }
 
 model Payment {
-  id              String        @id @default(uuid()) @db.Uuid
-  orderId         String        @db.Uuid
-  method          PaymentMethod
-  status          PaymentStatus @default(PENDING)
-  provider        String
-  providerRef     String?
-  tokenizedRef    String?
-  amountCents     Int
-  installments    Int?
-  webhookPayload  Json?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  paidAt          DateTime?
-  order           Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id           String        @id @default(uuid()) @db.Uuid
+  orderId      String        @map("order_id") @db.Uuid
+  method       PaymentMethod
+  status       PaymentStatus @default(PENDING)
+  provider     String
+  providerRef  String?       @map("provider_ref")
+  amountCents  Int           @map("amount_cents")
+  installments Int?
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  paidAt       DateTime?     @map("paid_at") @db.Timestamptz(6)
+  order        Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId])
-  @@index([providerRef])
+  @@map("payments")
 }
 
-model Coupon {
-  id                String   @id @default(uuid()) @db.Uuid
-  code              String   @unique
-  description       String?
-  amountCents       Int?
-  percentOff        Int?
-  startsAt          DateTime?
-  expiresAt         DateTime?
-  usageLimit        Int?
-  usedCount         Int      @default(0)
-  minSubtotalCents  Int?
-  isActive          Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-}
+model WebhookEvent {
+  id         String   @id @default(uuid()) @db.Uuid
+  provider   String
+  eventId    String   @map("event_id")
+  receivedAt DateTime @default(now()) @map("received_at") @db.Timestamptz(6)
 
-model Favorite {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @db.Uuid
-  productId String   @db.Uuid
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, productId])
-}
-
-model Review {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String   @db.Uuid
-  productId String   @db.Uuid
-  rating    Int
-  title     String?
-  comment   String?
-  isVisible Boolean  @default(true)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@index([productId])
-}
-
-model Invoice {
-  id            String        @id @default(uuid()) @db.Uuid
-  orderId       String        @db.Uuid
-  status        InvoiceStatus @default(PENDING)
-  provider      String?
-  externalRef   String?
-  number        String?
-  accessKey     String?
-  documentUrl   String?
-  errorMessage  String?
-  requestedAt   DateTime?
-  issuedAt      DateTime?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  @@index([orderId])
-}
-
-model Notification {
-  id           String              @id @default(uuid()) @db.Uuid
-  orderId      String?             @db.Uuid
-  channel      NotificationChannel
-  status       NotificationStatus  @default(PENDING)
-  recipient    String
-  subject      String?
-  payload      Json
-  providerRef  String?
-  errorMessage String?
-  createdAt    DateTime            @default(now())
-  sentAt       DateTime?
-  order        Order?              @relation(fields: [orderId], references: [id], onDelete: SetNull)
-
-  @@index([orderId])
+  @@unique([provider, eventId])
+  @@map("webhook_events")
 }
 
 model AuditLog {
-  id        String   @id @default(uuid()) @db.Uuid
-  userId    String?  @db.Uuid
+  id        BigInt   @id @default(autoincrement())
+  actorId   String?  @map("actor_id") @db.Uuid
   action    String
   entity    String
-  entityId  String?
+  entityId  String?  @map("entity_id")
   metadata  Json?
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
-  @@index([userId])
-  @@index([entity, entityId])
-}
-
-model Banner {
-  id          String   @id @default(uuid()) @db.Uuid
-  title       String
-  subtitle    String?
-  imageUrl    String
-  ctaLabel    String
-  ctaHref     String
-  startsAt    DateTime?
-  endsAt      DateTime?
-  isActive    Boolean  @default(true)
-  position    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model SizeChart {
-  id          String   @id @default(uuid()) @db.Uuid
-  productId   String?  @db.Uuid
-  size        String
-  bustCm      Int?
-  waistCm     Int?
-  hipCm       Int?
-  lengthCm    Int?
-  notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@index([productId])
+  @@map("audit_log")
 }

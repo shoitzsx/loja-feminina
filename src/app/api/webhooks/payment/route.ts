@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { getDb } from "@/server/db";
 import { verifyPaymentWebhook } from "@/server/integrations/payment";
+import { confirmPayment } from "@/server/order-repo";
 
 const paymentEventSchema = z.object({
   type: z.string().max(100).optional(),
   orderNumber: z.string().max(50).optional(),
+  eventId: z.string().min(1).max(100).optional(),
   paymentStatus: z.string().max(50).optional()
 });
 
@@ -26,6 +29,18 @@ export async function POST(request: NextRequest) {
   const event = parsed.data;
 
   if (event.type === "payment.confirmed" && event.paymentStatus === "PAID") {
+    const db = getDb();
+    if (db) {
+      // Com banco: exige eventId (idempotência) e só avança PENDING_PAYMENT → PAID.
+      if (!event.eventId || !event.orderNumber) return NextResponse.json({ error: "Evento inválido." }, { status: 400 });
+      try {
+        const result = await confirmPayment(db, { provider: "gateway", eventId: event.eventId, orderNumber: event.orderNumber });
+        return NextResponse.json({ received: true, duplicate: result === "duplicate" });
+      } catch (error) {
+        console.error("[payment:webhook] falha ao gravar", error instanceof Error ? error.name : "desconhecido");
+        return NextResponse.json({ error: "Falha ao processar o evento." }, { status: 500 });
+      }
+    }
     console.info("[payment:webhook] Confirmed paid order", event.orderNumber);
     return NextResponse.json({
       received: true,
