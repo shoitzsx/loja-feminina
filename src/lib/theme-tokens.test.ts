@@ -101,6 +101,12 @@ describe("tokens de tema", () => {
     expect(offenders).toEqual([]);
   });
 
+  it("a vitrine 3D usa a cena como hero e cantos arredondados", () => {
+    const vitrine = themeBlock("vitrine-3d");
+    expect(vitrine["hero-img"]).toContain("/images/novas/fundo-3d-cena.webp");
+    expect(parseFloat(vitrine["radius-card"])).toBeGreaterThanOrEqual(16);
+  });
+
   it("o escuro usa fundo e hero próprios", () => {
     const escuro = themeBlock("escuro");
     expect(escuro["page-bg"]).toContain("/images/novas/fundo-escuro.webp");

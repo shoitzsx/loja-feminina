@@ -1,6 +1,7 @@
 import { ArrowRight, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { CategoryCarousel } from "@/components/product/CategoryCarousel";
 import { ProductSections } from "@/components/product/ProductSections";
+import { Hero3DLoader } from "@/components/theme/Hero3DLoader";
 import { Button } from "@/components/ui/Button";
 import { brandLogoPath } from "@/lib/brand-assets";
 import { absoluteUrl } from "@/lib/site-url";
@@ -25,6 +26,7 @@ export default function HomePage() {
         <div className="hero-media absolute inset-0" role="img" aria-label="Coleção feminina Barb's Closet com roupas e acessórios em tons de rosa" />
         <div className="absolute inset-0 bg-gradient-to-r from-rosebrand-50 via-rosebrand-50/82 to-rosebrand-100/5" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-rosebrand-100/80 to-transparent" />
+        <Hero3DLoader />
         <div className="container-shell relative flex min-h-[620px] items-center py-14 sm:min-h-[calc(100vh-120px)] sm:max-h-[780px]">
           <div className="max-w-xl animate-rise-in">
             <p className="text-xs font-black uppercase text-rosebrand-600">Lançamentos Barb’s Closet</p>

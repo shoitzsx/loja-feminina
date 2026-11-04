@@ -115,8 +115,8 @@
   --accent: 168 80 92;
   --on-accent: 255 255 255;
 
-  --radius-card: 12px;
-  --radius-btn: 8px;
+  --radius-card: 16px;
+  --radius-btn: 12px;
   --shadow-soft: 0 24px 70px rgba(168, 80, 92, 0.16);
   --shadow-card: 0 14px 34px rgba(138, 62, 74, 0.12);
   --shadow-glow: 0 18px 45px rgba(201, 112, 122, 0.28);
@@ -124,9 +124,9 @@
   --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --page-bg: linear-gradient(180deg, #f6e3e0 0%, #f9ece9 100%);
-  --page-bg-size: auto;
-  --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --page-bg: linear-gradient(rgba(246, 227, 224, 0.84), rgba(249, 236, 233, 0.92)), url("/images/novas/textura-cetim-rosa.webp");
+  --page-bg-size: cover;
+  --hero-img: url("/images/novas/fundo-3d-cena.webp");
   --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #c9707a, #dc8f98, #a8505c);
@@ -177,4 +177,10 @@
   --brand-gradient: linear-gradient(135deg, #e0a458, #f0c27c, #c98a3c);
   --topbar-gradient: linear-gradient(90deg, #2a1220, #e0a458, #2a1220);
   --toast-gradient: linear-gradient(135deg, #e0a458, #5a1238);
+}
+
+/* Vitrine 3D: superfícies de vidro. */
+[data-theme="vitrine-3d"] .glam-panel,
+[data-theme="vitrine-3d"] .glam-hover {
+  backdrop-filter: blur(10px);
 }
