@@ -18,7 +18,7 @@ export default function AboutPage() {
         ].map(([title, text]) => (
           <article key={title} className="glam-panel glam-hover rounded-lg p-5">
             <h2 className="text-lg font-black text-ink">{title}</h2>
-            <p className="mt-2 text-sm leading-6 text-neutral-600">{text}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
           </article>
         ))}
       </section>

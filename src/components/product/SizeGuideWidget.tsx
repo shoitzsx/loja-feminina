@@ -24,9 +24,9 @@ export function SizeGuideWidget({ inline = false }: { inline?: boolean }) {
         <NumberInput label="Quadril (cm)" value={hip} setValue={setHip} min={75} max={150} />
       </div>
       <div className="rounded-lg bg-rosebrand-100 p-4 shadow-card">
-        <p className="text-sm font-bold text-neutral-700">Tamanho recomendado</p>
+        <p className="text-sm font-bold text-ink/80">Tamanho recomendado</p>
         <p className="mt-1 text-3xl font-black text-rosebrand-700">{recommendation}</p>
-        <p className="mt-2 text-xs leading-5 text-neutral-600">
+        <p className="mt-2 text-xs leading-5 text-muted">
           Esta é uma recomendação baseada nas medidas informadas. Consulte também a tabela específica da peça.
         </p>
       </div>
@@ -85,7 +85,7 @@ function NumberInput({ label, value, setValue, min, max }: { label: string; valu
   return (
     <label className="block">
       <span className="text-sm font-bold text-ink">{label}</span>
-      <input type="number" min={min} max={max} value={value} onChange={(event) => setValue(Number(event.target.value))} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3" />
+      <input type="number" min={min} max={max} value={value} onChange={(event) => setValue(Number(event.target.value))} className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3" />
     </label>
   );
 }

@@ -216,8 +216,8 @@ export function Header() {
         <SearchBox compact />
       </div>
 
-      <nav className={`hidden overflow-hidden bg-white/38 transition-[max-height,border-color,opacity] duration-[250ms] ease-in-out lg:block ${isCompact ? "max-h-0 border-t-0 border-transparent opacity-0" : "max-h-12 border-t border-rosebrand-100 opacity-100"}`}>
-        <div className="container-shell flex h-12 items-center gap-6 overflow-x-auto text-sm font-bold text-neutral-700">
+      <nav className={`hidden overflow-hidden bg-surface/38 transition-[max-height,border-color,opacity] duration-[250ms] ease-in-out lg:block ${isCompact ? "max-h-0 border-t-0 border-transparent opacity-0" : "max-h-12 border-t border-rosebrand-100 opacity-100"}`}>
+        <div className="container-shell flex h-12 items-center gap-6 overflow-x-auto text-sm font-bold text-ink/80">
           {navItems.map(([label, href]) => (
             <Link key={href} href={href} className="whitespace-nowrap rounded-lg px-2 py-2 transition hover:bg-rosebrand-100 hover:text-rosebrand-700">
               {label}

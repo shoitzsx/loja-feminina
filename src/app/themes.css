@@ -135,6 +135,7 @@
 }
 
 [data-theme="escuro"] {
+  color-scheme: dark;
   /* Escala invertida: 50 = superfície escura, 900 = texto claro. */
   --rb-50: 42 18 32;
   --rb-100: 58 26 44;
@@ -168,9 +169,9 @@
   --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --page-bg: linear-gradient(180deg, #1a0a12 0%, #230d19 100%);
-  --page-bg-size: auto;
-  --hero-img: url("/images/hero/barbs-closet-hero.png");
+  --page-bg: linear-gradient(rgba(26, 10, 18, 0.84), rgba(26, 10, 18, 0.92)), url("/images/novas/fundo-escuro.webp");
+  --page-bg-size: cover;
+  --hero-img: url("/images/novas/fundo-escuro.webp");
   --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #e0a458, #f0c27c, #c98a3c);

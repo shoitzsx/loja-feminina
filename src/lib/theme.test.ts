@@ -3,12 +3,16 @@ import { DEFAULT_THEME, THEME_IDS, THEME_STORAGE_KEY, isThemeId, resolveTheme, t
 
 type Stubs = { search?: string; stored?: string | null; storageThrows?: boolean };
 
-function runInitScript({ search = "", stored = null, storageThrows = false }: Stubs) {
+function runInitScript({ search = "", stored = null, storageThrows = false }: Stubs, written: Record<string, string> = {}) {
   const document = { documentElement: { dataset: {} as Record<string, string> } };
   const localStorage = {
     getItem: (key: string) => {
       if (storageThrows) throw new Error("SecurityError");
       return key === THEME_STORAGE_KEY ? stored : null;
+    },
+    setItem: (key: string, value: string) => {
+      if (storageThrows) throw new Error("SecurityError");
+      written[key] = value;
     }
   };
   new Function("document", "localStorage", "location", themeInitScript())(document, localStorage, { search });
@@ -50,6 +54,18 @@ describe("isThemeId", () => {
 describe("themeInitScript", () => {
   it("aplica o tema da URL", () => {
     expect(runInitScript({ search: "?tema=escuro" })).toBe("escuro");
+  });
+
+  it("grava o tema vindo da URL para valer nas próximas páginas", () => {
+    const written: Record<string, string> = {};
+    runInitScript({ search: "?tema=escuro", stored: "editorial" }, written);
+    expect(written[THEME_STORAGE_KEY]).toBe("escuro");
+  });
+
+  it("não grava nada quando o tema vem do valor salvo", () => {
+    const written: Record<string, string> = {};
+    runInitScript({ stored: "editorial" }, written);
+    expect(written).toEqual({});
   });
 
   it("não quebra com localStorage bloqueado e cai no padrão", () => {

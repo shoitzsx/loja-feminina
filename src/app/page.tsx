@@ -31,7 +31,7 @@ export default function HomePage() {
             <h1 className="mt-4 text-4xl font-black leading-tight text-ink sm:text-5xl lg:text-6xl">
               Moda feminina e semijoias para brilhar com leveza.
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-7 text-neutral-700">
+            <p className="mt-5 max-w-lg text-base leading-7 text-ink/80">
               Roupas, colares, brincos e pulseiras em uma curadoria glam, elegante e fácil de comprar.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -43,7 +43,7 @@ export default function HomePage() {
                 Conhecer coleção
               </Button>
             </div>
-            <div className="mt-8 grid gap-3 text-sm font-bold text-neutral-700 sm:grid-cols-3">
+            <div className="mt-8 grid gap-3 text-sm font-bold text-ink/80 sm:grid-cols-3">
               <HeroBenefit icon={<Truck className="size-5" />} label="Frete grátis acima de R$ 299" />
               <HeroBenefit icon={<ShieldCheck className="size-5" />} label="Checkout seguro" />
               <HeroBenefit icon={<Sparkles className="size-5" />} label="Prata, ouro e glam" />

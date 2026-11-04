@@ -57,6 +57,17 @@ h3 {
   background-position: center;
 }
 
+input,
+select,
+textarea {
+  color: rgb(var(--text));
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgb(var(--text-muted) / 0.7);
+}
+
 /* Faixa decorativa suave: imagem do tema sob um véu da cor de superfície. */
 .theme-band {
   background-image: linear-gradient(rgb(var(--rb-50) / 0.9), rgb(var(--rb-50) / 0.95)), var(--band-img, none);
@@ -95,13 +106,13 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba(247, 37, 133, 0.35);
+  outline: 3px solid rgb(var(--rb-500) / 0.35);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: #f72585;
-  color: #fff;
+  background: rgb(var(--rb-500));
+  color: rgb(var(--on-accent));
 }
 
 .container-shell {
@@ -118,15 +129,15 @@ textarea:focus-visible {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #ffe0ef, #ff9ccc, #ffe0ef);
+  background: linear-gradient(90deg, rgb(var(--rb-100)), rgb(var(--rb-300)), rgb(var(--rb-100)));
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
 
 .glam-panel {
-  border: 1px solid rgba(255, 63, 159, 0.2);
-  background: rgba(255, 244, 250, 0.94);
-  box-shadow: 0 14px 34px rgba(189, 0, 100, 0.12);
+  border: 1px solid rgb(var(--rb-400) / 0.2);
+  background: rgb(var(--blush) / 0.94);
+  box-shadow: var(--shadow-card);
 }
 
 .glam-hover {
@@ -139,8 +150,8 @@ textarea:focus-visible {
 
 .glam-hover:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 22, 137, 0.42);
-  box-shadow: 0 22px 52px rgba(230, 0, 119, 0.18);
+  border-color: rgb(var(--rb-500) / 0.42);
+  box-shadow: var(--shadow-soft);
 }
 
 .pink-sheen {

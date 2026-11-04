@@ -1,12 +1,16 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { THEME_IDS, THEME_LABELS } from "@/lib/theme";
 import { useTheme } from "./ThemeProvider";
 
 /** Seletor temporário para comparar os temas. Só aparece com NEXT_PUBLIC_THEME_SWITCHER=1. */
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
-  if (process.env.NEXT_PUBLIC_THEME_SWITCHER !== "1") return null;
+  // Só renderiza depois de montar: antes disso o estado ainda é o padrão e marcaria o tema errado.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (process.env.NEXT_PUBLIC_THEME_SWITCHER !== "1" || !mounted) return null;
 
   return (
     <div

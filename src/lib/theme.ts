@@ -34,5 +34,5 @@ export function resolveTheme({ search, stored }: { search?: string; stored?: str
  * Espelha resolveTheme (há teste de paridade) e nunca lança erro.
  */
 export function themeInitScript(): string {
-  return `(function(){var ids=${JSON.stringify(THEME_IDS)};var theme=${JSON.stringify(DEFAULT_THEME)};try{var q=new URLSearchParams(location.search).get("tema");var s=null;try{s=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)})}catch(e){}if(ids.indexOf(q)>-1){theme=q}else if(ids.indexOf(s)>-1){theme=s}}catch(e){}document.documentElement.dataset.theme=theme})();`;
+  return `(function(){var ids=${JSON.stringify(THEME_IDS)};var theme=${JSON.stringify(DEFAULT_THEME)};try{var q=new URLSearchParams(location.search).get("tema");var s=null;try{s=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)})}catch(e){}if(ids.indexOf(q)>-1){theme=q;try{localStorage.setItem(${JSON.stringify(THEME_STORAGE_KEY)},q)}catch(e){}}else if(ids.indexOf(s)>-1){theme=s}}catch(e){}document.documentElement.dataset.theme=theme})();`;
 }

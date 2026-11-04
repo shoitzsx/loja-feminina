@@ -35,12 +35,12 @@ export function AdminDashboard() {
         <form onSubmit={authorize} className="glam-panel w-full max-w-md animate-soft-pop rounded-lg p-6">
           <ShieldCheck className="mx-auto size-10 text-rosebrand-600" />
           <h1 className="mt-4 text-center text-2xl font-black text-ink">Painel administrativo</h1>
-          <p className="mt-2 text-center text-sm leading-6 text-neutral-600">
+          <p className="mt-2 text-center text-sm leading-6 text-muted">
             Acesso de demonstração. Em produção, use sessão segura, RBAC, MFA opcional e auditoria.
           </p>
           <label className="mt-5 block text-sm font-bold text-ink">
             Código do MVP
-            <input name="code" type="password" placeholder="BARBS-ADMIN" className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3" />
+            <input name="code" type="password" placeholder="BARBS-ADMIN" className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3" />
           </label>
           <Button type="submit" className="mt-4 w-full">Entrar</Button>
           {message && <p className="mt-3 rounded-lg bg-rosebrand-100 p-3 text-sm font-bold text-rosebrand-800">{message}</p>}
@@ -95,10 +95,10 @@ export function AdminDashboard() {
         <AdminSection title="Estoque baixo">
           <div className="grid gap-3">
             {lowStock.map(({ product, variant }) => (
-              <div key={variant.id} className="flex items-center justify-between rounded-lg border border-rosebrand-200 bg-white/50 p-3">
+              <div key={variant.id} className="flex items-center justify-between rounded-lg border border-rosebrand-200 bg-surface/50 p-3">
                 <span>
                   <span className="block text-sm font-black text-ink">{product.name}</span>
-                  <span className="text-xs text-neutral-500">{variant.sku} · {variant.size ?? "Único"}</span>
+                  <span className="text-xs text-muted">{variant.sku} · {variant.size ?? "Único"}</span>
                 </span>
                 <Badge>{variant.stock} un.</Badge>
               </div>
@@ -123,7 +123,7 @@ export function AdminDashboard() {
       </div>
 
       <AdminSection title="Integrações e segurança" className="mt-8">
-        <div className="grid gap-3 text-sm leading-6 text-neutral-700 md:grid-cols-2">
+        <div className="grid gap-3 text-sm leading-6 text-ink/80 md:grid-cols-2">
           <p>Pagamentos: confirmar status apenas por webhook assinado do gateway.</p>
           <p>Nota fiscal: emissão depende de provedor fiscal, CNPJ, certificado e regras reais.</p>
           <p>WhatsApp: mensagens automáticas exigem WhatsApp Business Platform e templates aprovados.</p>
@@ -138,7 +138,7 @@ function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; 
   return (
     <article className="glam-panel glam-hover rounded-lg p-5">
       <div className="text-rosebrand-600">{icon}</div>
-      <p className="mt-3 text-sm font-bold text-neutral-600">{label}</p>
+      <p className="mt-3 text-sm font-bold text-muted">{label}</p>
       <p className="mt-1 text-2xl font-black text-ink">{value}</p>
     </article>
   );
@@ -159,7 +159,7 @@ function AdminForm({ fields, button }: { fields: string[]; button: string }) {
       {fields.map((field) => (
         <label key={field} className="block">
           <span className="text-sm font-bold text-ink">{field}</span>
-          <input className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-white/80 px-3 text-sm" />
+          <input className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3 text-sm" />
         </label>
       ))}
       <Button type="button" className="sm:col-span-2">

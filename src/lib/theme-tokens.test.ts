@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { THEME_IDS, type ThemeId } from "./theme";
 
@@ -88,6 +89,23 @@ describe("tokens de tema", () => {
     const editorial = themeBlock("editorial");
     expect(editorial["page-bg"]).toContain("/images/novas/fundo-editorial.webp");
     expect(editorial["hero-img"]).toContain("/images/novas/hero-novo.webp");
+  });
+
+  it("componentes não usam bg-white nem text-neutral fixos", () => {
+    const offenders: string[] = [];
+    for (const file of readdirSync("src", { recursive: true, encoding: "utf8" })) {
+      if (!file.endsWith(".tsx") || file.endsWith("WhatsAppButton.tsx")) continue;
+      const source = readFileSync(join("src", file), "utf8");
+      if (/\bbg-white\b/.test(source) || /\btext-neutral-/.test(source)) offenders.push(file);
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("o escuro usa fundo e hero próprios", () => {
+    const escuro = themeBlock("escuro");
+    expect(escuro["page-bg"]).toContain("/images/novas/fundo-escuro.webp");
+    expect(escuro["hero-img"]).toContain("/images/novas/fundo-escuro.webp");
+    expect(escuro["on-accent"]).not.toBe("255 255 255");
   });
 
   it("contraste AA (4,5:1) em todos os temas", () => {

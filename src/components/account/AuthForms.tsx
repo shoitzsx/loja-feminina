@@ -92,7 +92,7 @@ function AuthShell({ title, children }: { title: string; children: React.ReactNo
         </div>
         <h1 className="mb-5 text-center text-2xl font-black text-ink">{title}</h1>
         {children}
-        <p className="mt-5 text-center text-xs leading-5 text-neutral-500">
+        <p className="mt-5 text-center text-xs leading-5 text-muted">
           Proteção preparada com hash Argon2id, rate limiting, validação de e-mail, token temporário e CAPTCHA em produção.
         </p>
       </div>
@@ -104,7 +104,7 @@ function Input({ label, icon, ...props }: { label: string; icon: React.ReactNode
   return (
     <label>
       <span className="text-sm font-bold text-ink">{label}</span>
-      <span className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-rosebrand-200 bg-white/80 px-3">
+      <span className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-rosebrand-200 bg-surface/80 px-3">
         <span className="text-rosebrand-600">{icon}</span>
         <input {...props} className="min-w-0 flex-1 outline-none" />
       </span>
@@ -130,10 +130,10 @@ function PasswordInput({
   return (
     <label>
       <span className="text-sm font-bold text-ink">{label}</span>
-      <span className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-rosebrand-200 bg-white/80 px-3">
+      <span className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-rosebrand-200 bg-surface/80 px-3">
         <LockKeyhole className="size-4 text-rosebrand-600" />
         <input name={name} type={show ? "text" : "password"} value={value} onChange={(event) => onChange?.(event.target.value)} required className="min-w-0 flex-1 outline-none" />
-        <button type="button" onClick={() => setShow(!show)} aria-label={show ? "Ocultar senha" : "Mostrar senha"} className="rounded p-1 text-neutral-500 hover:bg-rosebrand-100">
+        <button type="button" onClick={() => setShow(!show)} aria-label={show ? "Ocultar senha" : "Mostrar senha"} className="rounded p-1 text-muted hover:bg-rosebrand-100">
           {show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
         </button>
       </span>

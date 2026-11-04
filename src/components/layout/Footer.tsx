@@ -32,7 +32,7 @@ export function Footer() {
       <div className="container-shell grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1fr_1fr]">
         <section className="transition duration-200 hover:-translate-y-0.5">
           <Logo />
-          <p className="mt-4 max-w-sm text-sm leading-6 text-neutral-600">
+          <p className="mt-4 max-w-sm text-sm leading-6 text-muted">
             Moda feminina, acessórios e semijoias selecionadas para looks elegantes, femininos e fáceis de comprar.
           </p>
         </section>
@@ -58,7 +58,7 @@ export function Footer() {
           </div>
         </section>
       </div>
-      <div className="border-t border-rosebrand-100 py-4 text-center text-xs text-neutral-500 transition-colors duration-200 hover:text-rosebrand-700">
+      <div className="border-t border-rosebrand-100 py-4 text-center text-xs text-muted transition-colors duration-200 hover:text-rosebrand-700">
         © Barb’s Closet — Todos os direitos reservados.
       </div>
     </footer>
@@ -69,7 +69,7 @@ function FooterGroup({ title, links }: { title: string; links: Array<[string, st
   return (
     <section className="transition duration-200 hover:-translate-y-0.5">
       <h2 className="text-sm font-black uppercase text-ink">{title}</h2>
-      <div className="mt-4 grid gap-2 text-sm text-neutral-600">
+      <div className="mt-4 grid gap-2 text-sm text-muted">
         {links.map(([label, href]) => (
           <Link key={label} href={href} className="group w-fit transition-colors duration-200 hover:text-rosebrand-700">
             <span className="bg-gradient-to-r from-rosebrand-600 to-rosebrand-600 bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-200 group-hover:bg-[length:100%_2px]">
@@ -84,7 +84,7 @@ function FooterGroup({ title, links }: { title: string; links: Array<[string, st
 
 function Social({ href, label, icon }: { href: string; label: string; icon: ReactNode }) {
   return (
-    <Link href={href} aria-label={label} className="grid size-10 place-items-center rounded-lg border border-rosebrand-200 bg-white/60 text-rosebrand-700 transition duration-200 hover:-translate-y-0.5 hover:rotate-3 hover:scale-105 hover:bg-rosebrand-100 hover:text-rosebrand-900">
+    <Link href={href} aria-label={label} className="grid size-10 place-items-center rounded-lg border border-rosebrand-200 bg-surface/60 text-rosebrand-700 transition duration-200 hover:-translate-y-0.5 hover:rotate-3 hover:scale-105 hover:bg-rosebrand-100 hover:text-rosebrand-900">
       {icon}
     </Link>
   );
