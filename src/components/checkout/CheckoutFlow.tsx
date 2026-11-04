@@ -246,13 +246,16 @@ export function CheckoutFlow() {
         {pricing.couponMessage && <p className="mt-2 text-xs font-bold text-rosebrand-700">{pricing.couponMessage}</p>}
         <dl className="mt-5 grid gap-2 text-sm">
           <Summary label="Subtotal" value={formatMoney(pricing.subtotal)} />
-          <Summary label="Descontos" value={`-${formatMoney(pricing.productDiscount + pricing.couponDiscount)}`} />
+          <Summary label="Cupom" value={`-${formatMoney(pricing.couponDiscount)}`} />
           <Summary label="Frete" value={pricing.shipping === 0 ? "Grátis" : formatMoney(pricing.shipping)} />
           <div className="mt-3 flex justify-between border-t border-rosebrand-100 pt-4 text-base font-black">
             <dt>Total</dt>
             <dd>{formatMoney(pricing.total)}</dd>
           </div>
         </dl>
+        {pricing.productDiscount > 0 && (
+          <p className="mt-3 text-xs font-bold text-rosebrand-700">Você economizou {formatMoney(pricing.productDiscount)} nas promoções.</p>
+        )}
       </aside>
     </section>
   );

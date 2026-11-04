@@ -76,7 +76,6 @@ export function CartView() {
         {pricing.couponMessage && <p className="mt-2 text-xs font-bold text-rosebrand-700">{pricing.couponMessage}</p>}
         <dl className="mt-5 grid gap-3 text-sm">
           <SummaryLine label="Subtotal" value={formatMoney(pricing.subtotal)} />
-          <SummaryLine label="Desconto de produtos" value={`-${formatMoney(pricing.productDiscount)}`} />
           <SummaryLine label="Cupom" value={`-${formatMoney(pricing.couponDiscount)}`} />
           <SummaryLine label="Frete estimado" value={pricing.shipping === 0 ? "Grátis" : formatMoney(pricing.shipping)} />
           <div className="mt-2 flex items-center justify-between border-t border-rosebrand-100 pt-4 text-base font-black">
@@ -84,6 +83,9 @@ export function CartView() {
             <dd>{formatMoney(pricing.total)}</dd>
           </div>
         </dl>
+        {pricing.productDiscount > 0 && (
+          <p className="mt-3 text-xs font-bold text-rosebrand-700">Você economizou {formatMoney(pricing.productDiscount)} nas promoções.</p>
+        )}
         <Button href="/checkout" className="mt-5 w-full">
           Finalizar compra
         </Button>
