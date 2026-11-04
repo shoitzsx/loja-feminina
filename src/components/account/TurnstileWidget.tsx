@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -17,20 +17,31 @@ const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 /** Caixa de verificação anti-robô. Troque `resetKey` para pedir uma nova verificação (ex.: após enviar). */
 export function TurnstileWidget({ onToken, resetKey = 0 }: { onToken: (token: string) => void; resetKey?: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [stalled, setStalled] = useState(false);
 
   useEffect(() => {
     if (!siteKey || !ref.current) return;
     const container = ref.current;
     let widgetId: string | undefined;
     let cancelled = false;
+    setStalled(false);
+    // Se em 20 s nenhum token chegou, avisa em vez de deixar o botão travado sem explicação.
+    const timer = window.setTimeout(() => setStalled(true), 20000);
 
     function mount() {
       if (cancelled || !window.turnstile) return;
       widgetId = window.turnstile.render(container, {
         sitekey: siteKey,
-        callback: (token: string) => onToken(token),
+        callback: (token: string) => {
+          window.clearTimeout(timer);
+          setStalled(false);
+          onToken(token);
+        },
         "expired-callback": () => onToken(""),
-        "error-callback": () => onToken("")
+        "error-callback": () => {
+          setStalled(true);
+          onToken("");
+        }
       });
     }
 
@@ -49,10 +60,20 @@ export function TurnstileWidget({ onToken, resetKey = 0 }: { onToken: (token: st
 
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
       if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
     };
   }, [onToken, resetKey]);
 
   if (!siteKey) return null;
-  return <div ref={ref} className="min-h-[65px]" />;
+  return (
+    <div>
+      <div ref={ref} className="min-h-[65px]" />
+      {stalled && (
+        <p role="alert" className="mt-2 text-xs font-bold text-rosebrand-800">
+          A verificação de segurança não carregou. Recarregue a página, desative bloqueadores de anúncio para este site ou tente outro navegador.
+        </p>
+      )}
+    </div>
+  );
 }
