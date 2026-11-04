@@ -1,7 +1,7 @@
 "use client";
 
-import { BarChart3, Boxes, Package, ShieldCheck, ShoppingCart, Users } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { BarChart3, Boxes, Package, ShoppingCart, Users } from "lucide-react";
+import { useMemo } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { products } from "@/lib/data";
@@ -14,40 +14,10 @@ const recentOrders = [
 ];
 
 export function AdminDashboard() {
-  const [authorized, setAuthorized] = useState(false);
-  const [message, setMessage] = useState("");
-
-  function authorize(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    setAuthorized(form.get("code") === "BARBS-ADMIN");
-    setMessage(form.get("code") === "BARBS-ADMIN" ? "" : "Código inválido para o MVP.");
-  }
-
   const lowStock = useMemo(
     () => products.flatMap((product) => product.variants.map((variant) => ({ product, variant }))).filter(({ variant }) => variant.stock <= variant.lowStockAlert),
     []
   );
-
-  if (!authorized) {
-    return (
-      <section className="container-shell grid min-h-[70vh] place-items-center py-10">
-        <form onSubmit={authorize} className="glam-panel w-full max-w-md animate-soft-pop rounded-lg p-6">
-          <ShieldCheck className="mx-auto size-10 text-rosebrand-600" />
-          <h1 className="mt-4 text-center text-2xl font-black text-ink">Painel administrativo</h1>
-          <p className="mt-2 text-center text-sm leading-6 text-muted">
-            Acesso de demonstração. Em produção, use sessão segura, RBAC, MFA opcional e auditoria.
-          </p>
-          <label className="mt-5 block text-sm font-bold text-ink">
-            Código do MVP
-            <input name="code" type="password" placeholder="BARBS-ADMIN" className="mt-2 h-11 w-full rounded-lg border border-rosebrand-200 bg-surface/80 px-3" />
-          </label>
-          <Button type="submit" className="mt-4 w-full">Entrar</Button>
-          {message && <p className="mt-3 rounded-lg bg-rosebrand-100 p-3 text-sm font-bold text-rosebrand-800">{message}</p>}
-        </form>
-      </section>
-    );
-  }
 
   return (
     <section className="container-shell py-8">
@@ -56,7 +26,7 @@ export function AdminDashboard() {
           <p className="text-xs font-black uppercase text-rosebrand-600">Admin Barb’s Closet</p>
           <h1 className="mt-1 text-3xl font-black text-ink">Dashboard</h1>
         </div>
-        <Button type="button" variant="secondary" onClick={() => setAuthorized(false)}>Sair do painel</Button>
+        <Button href="/" variant="secondary">Voltar à loja</Button>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
