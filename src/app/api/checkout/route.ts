@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkoutSchema } from "@/lib/checkout-schema";
 import { CheckoutError, createCheckoutOrder } from "@/server/order";
+import { guardAuth } from "@/server/auth-guard";
 import { rateLimit } from "@/server/security";
 
 export async function POST(request: NextRequest) {
@@ -17,8 +18,12 @@ export async function POST(request: NextRequest) {
   const parsed = checkoutSchema.safeParse(body);
   if (!parsed.success) return NextResponse.json({ error: "Dados de checkout inválidos." }, { status: 400 });
 
+  const { turnstileToken, ...orderData } = parsed.data;
+  const blocked = await guardAuth(request, { action: "checkout", token: turnstileToken });
+  if (blocked) return blocked;
+
   try {
-    const order = await createCheckoutOrder(parsed.data);
+    const order = await createCheckoutOrder(orderData);
     return NextResponse.json({ order }, { status: 201 });
   } catch (error) {
     // Só mensagens pensadas para o cliente (CheckoutError) saem; o resto fica no log do servidor.

@@ -32,5 +32,6 @@ export const checkoutSchema = z.object({
     .max(50),
   couponCode: z.string().max(50).optional(),
   shippingOptionId: z.string().max(50),
-  paymentMethod: z.enum(["PIX", "CREDIT_CARD", "DEBIT_CARD"])
+  paymentMethod: z.enum(["PIX", "CREDIT_CARD", "DEBIT_CARD"]),
+  turnstileToken: z.string().max(2048).optional()
 });

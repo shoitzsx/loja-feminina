@@ -2,7 +2,8 @@
 
 import { CheckCircle2, CreditCard, MapPin, UserRound, WalletCards } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { TurnstileWidget } from "@/components/account/TurnstileWidget";
 import { useCart } from "@/components/cart/CartProvider";
 import { Button } from "@/components/ui/Button";
 import { shippingOptions } from "@/lib/data";
@@ -26,6 +27,10 @@ export function CheckoutFlow() {
   const [paymentMethod, setPaymentMethod] = useState<CheckoutPayload["paymentMethod"]>("PIX");
   const [loadingCep, setLoadingCep] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const onCaptchaToken = useCallback((value: string) => setCaptchaToken(value), []);
+  const captchaRequired = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
   const [confirmation, setConfirmation] = useState<{ orderNumber: string; message: string } | null>(null);
   const [customer, setCustomer] = useState({
     firstName: "",
@@ -89,7 +94,8 @@ export function CheckoutFlow() {
       items,
       couponCode: coupon,
       shippingOptionId,
-      paymentMethod
+      paymentMethod,
+      turnstileToken: captchaToken
     };
 
     try {
@@ -106,6 +112,8 @@ export function CheckoutFlow() {
     } catch (error) {
       alert(error instanceof Error ? error.message : "Erro no checkout.");
     } finally {
+      setCaptchaToken("");
+      setCaptchaReset((value) => value + 1);
       setSubmitting(false);
     }
   }
@@ -206,6 +214,9 @@ export function CheckoutFlow() {
                 </label>
               ))}
             </div>
+            <div className="mt-4">
+              <TurnstileWidget onToken={onCaptchaToken} resetKey={captchaReset} />
+            </div>
           </Panel>
         )}
 
@@ -227,7 +238,7 @@ export function CheckoutFlow() {
             <Button type="button" variant="secondary" disabled={step === 1} onClick={() => setStep((current) => Math.max(1, current - 1))}>
               Voltar
             </Button>
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={submitting || (step === 4 && captchaRequired && !captchaToken)}>
               {step === 4 ? "Criar pedido seguro" : "Continuar"}
             </Button>
           </div>

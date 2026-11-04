@@ -88,4 +88,5 @@ export type CheckoutPayload = {
   couponCode?: string;
   shippingOptionId: string;
   paymentMethod: "PIX" | "CREDIT_CARD" | "DEBIT_CARD";
+  turnstileToken?: string;
 };
