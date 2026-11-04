@@ -92,46 +92,46 @@
 }
 
 [data-theme="vitrine-3d"] {
-  --rb-50: 253 240 238;
-  --rb-100: 250 222 220;
-  --rb-200: 240 196 196;
-  --rb-300: 224 160 166;
-  --rb-400: 208 128 138;
-  --rb-500: 201 112 122;
-  --rb-600: 156 69 82;
-  --rb-700: 138 62 74;
-  --rb-800: 108 48 58;
-  --rb-900: 78 34 42;
-  --plum: 90 30 46;
-  --blush: 253 240 238;
-  --gold: 143 106 60;
+  --rb-50: 255 240 248;
+  --rb-100: 255 215 236;
+  --rb-200: 255 173 216;
+  --rb-300: 255 120 189;
+  --rb-400: 255 63 159;
+  --rb-500: 255 22 137;
+  --rb-600: 230 0 119;
+  --rb-700: 189 0 100;
+  --rb-800: 148 6 80;
+  --rb-900: 111 10 66;
+  --plum: 90 18 56;
+  --blush: 255 244 250;
+  --gold: 216 168 61;
 
-  --bg: 246 227 224;
+  --bg: 255 240 248;
   --surface: 255 255 255;
-  --surface-2: 252 240 238;
-  --text: 42 26 32;
-  --text-muted: 100 80 88;
-  --border: 240 196 196;
-  --accent: 156 69 82;
+  --surface-2: 255 244 250;
+  --text: 36 16 29;
+  --text-muted: 82 82 82;
+  --border: 255 173 216;
+  --accent: 230 0 119;
   --on-accent: 255 255 255;
 
   --radius-card: 16px;
   --radius-btn: 12px;
-  --shadow-soft: 0 24px 70px rgba(168, 80, 92, 0.16);
-  --shadow-card: 0 14px 34px rgba(138, 62, 74, 0.12);
-  --shadow-glow: 0 18px 45px rgba(201, 112, 122, 0.28);
+  --shadow-soft: 0 24px 70px rgba(230, 0, 119, 0.16);
+  --shadow-card: 0 14px 34px rgba(189, 0, 100, 0.12);
+  --shadow-glow: 0 18px 45px rgba(255, 22, 137, 0.28);
 
   --font-display: var(--font-playfair), "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --page-bg: linear-gradient(rgba(246, 227, 224, 0.84), rgba(249, 236, 233, 0.92)), url("/images/novas/textura-cetim-rosa.webp");
+  --page-bg: linear-gradient(rgba(255, 240, 248, 0.84), rgba(255, 245, 251, 0.92)), url("/images/novas/textura-cetim-rosa.webp");
   --page-bg-size: cover;
   --hero-img: url("/images/novas/fundo-3d-cena.webp");
   --band-img: none;
 
-  --brand-gradient: linear-gradient(135deg, #a8505c, #b05866, #8e3f4b);
-  --topbar-gradient: linear-gradient(90deg, #9c4552, #a8505c, #8f6a3c, #a8505c);
-  --toast-gradient: linear-gradient(135deg, #a8505c, #5a1e2e);
+  --brand-gradient: linear-gradient(135deg, #ff1689, #ff4fac, #e60077);
+  --topbar-gradient: linear-gradient(90deg, #e60077, #ff1689, #d8a83d, #ff1689);
+  --toast-gradient: linear-gradient(135deg, #ff1689, #5a1238);
 }
 
 [data-theme="escuro"] {

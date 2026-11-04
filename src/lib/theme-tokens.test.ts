@@ -134,6 +134,9 @@ describe("tokens de tema", () => {
     expect(escuro["on-accent"]).not.toBe("255 255 255");
   });
 
+  // Temas que usam a paleta rosa original da loja (vibrante e vitrine 3D, a pedido da cliente).
+  const ORIGINAL_PALETTE: string[] = ["vibrante", "vitrine-3d"];
+
   describe("o que é de fato pintado (revisão final)", () => {
     const hexLum = (hex: string) => luminance(`${parseInt(hex.slice(1, 3), 16)} ${parseInt(hex.slice(3, 5), 16)} ${parseInt(hex.slice(5, 7), 16)}`);
     const hexContrast = (hex: string, channelsColor: string) => {
@@ -146,8 +149,8 @@ describe("tokens de tema", () => {
       for (const id of THEME_IDS) {
         const t = themeBlock(id);
         // vibrante: o degradê rosa original já tinha 3,0 a 3,7 (ruling da Task 3); o resto exige AA.
-        const min = id === "vibrante" ? 3 : 4.5;
-        const names = id === "vibrante" ? ["brand-gradient"] : ["brand-gradient", "topbar-gradient", "toast-gradient"];
+        const min = ORIGINAL_PALETTE.includes(id) ? 3 : 4.5;
+        const names = ORIGINAL_PALETTE.includes(id) ? ["brand-gradient"] : ["brand-gradient", "topbar-gradient", "toast-gradient"];
         for (const name of names) {
           for (const color of stops(t[name])) {
             expect(hexContrast(color, t["on-accent"]), `${id}: ${name} ${color}`).toBeGreaterThanOrEqual(min);
@@ -157,7 +160,7 @@ describe("tokens de tema", () => {
     });
 
     it("o dourado (selo) e o rb-600 (rótulos) são legíveis nos temas novos", () => {
-      for (const id of THEME_IDS.filter((x) => x !== "vibrante")) {
+      for (const id of THEME_IDS.filter((x) => !ORIGINAL_PALETTE.includes(x))) {
         const t = themeBlock(id);
         expect(contrast(t.gold, t["on-accent"]), `${id}: gold/on-accent`).toBeGreaterThanOrEqual(4.5);
         expect(contrast(t["rb-600"], t.bg), `${id}: rb-600/bg`).toBeGreaterThanOrEqual(4.5);
