@@ -134,6 +134,50 @@ describe("tokens de tema", () => {
     expect(escuro["on-accent"]).not.toBe("255 255 255");
   });
 
+  describe("o que é de fato pintado (revisão final)", () => {
+    const hexLum = (hex: string) => luminance(`${parseInt(hex.slice(1, 3), 16)} ${parseInt(hex.slice(3, 5), 16)} ${parseInt(hex.slice(5, 7), 16)}`);
+    const hexContrast = (hex: string, channelsColor: string) => {
+      const [hi, lo] = [hexLum(hex), luminance(channelsColor)].sort((a, b) => b - a);
+      return (hi + 0.05) / (lo + 0.05);
+    };
+    const stops = (gradient: string) => gradient.match(/#[0-9a-fA-F]{6}/g) ?? [];
+
+    it("cada parada dos degradês de botão, barra e toast tem contraste com o texto", () => {
+      for (const id of THEME_IDS) {
+        const t = themeBlock(id);
+        // vibrante: o degradê rosa original já tinha 3,0 a 3,7 (ruling da Task 3); o resto exige AA.
+        const min = id === "vibrante" ? 3 : 4.5;
+        const names = id === "vibrante" ? ["brand-gradient"] : ["brand-gradient", "topbar-gradient", "toast-gradient"];
+        for (const name of names) {
+          for (const color of stops(t[name])) {
+            expect(hexContrast(color, t["on-accent"]), `${id}: ${name} ${color}`).toBeGreaterThanOrEqual(min);
+          }
+        }
+      }
+    });
+
+    it("o dourado (selo) e o rb-600 (rótulos) são legíveis nos temas novos", () => {
+      for (const id of THEME_IDS.filter((x) => x !== "vibrante")) {
+        const t = themeBlock(id);
+        expect(contrast(t.gold, t["on-accent"]), `${id}: gold/on-accent`).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(t["rb-600"], t.bg), `${id}: rb-600/bg`).toBeGreaterThanOrEqual(4.5);
+        expect(contrast(t["rb-600"], t["rb-100"]), `${id}: rb-600/rb-100`).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+
+    it("escuro e vitrine 3D usam Playfair nos títulos e Inter no corpo (spec, seção 4)", () => {
+      for (const id of ["escuro", "vitrine-3d"] as const) {
+        const t = themeBlock(id);
+        expect(t["font-display"], `${id}: display`).toContain("--font-playfair");
+        expect(t["font-body"], `${id}: body`).toContain("--font-inter");
+      }
+    });
+
+    it("o anel de foco usa a cor de destaque sólida", () => {
+      expect(readFileSync("src/app/globals.css", "utf8")).toContain("outline: 3px solid rgb(var(--accent))");
+    });
+  });
+
   it("contraste AA (4,5:1) em todos os temas", () => {
     for (const id of THEME_IDS) {
       const t = themeBlock(id);

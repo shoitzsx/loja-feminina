@@ -106,7 +106,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgb(var(--rb-500) / 0.35);
+  outline: 3px solid rgb(var(--accent));
   outline-offset: 3px;
 }
 

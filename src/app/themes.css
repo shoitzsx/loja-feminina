@@ -61,7 +61,7 @@
   --rb-900: 66 36 42;
   --plum: 74 40 50;
   --blush: 252 247 245;
-  --gold: 184 152 90;
+  --gold: 140 106 47;
 
   --bg: 250 246 241;
   --surface: 255 255 255;
@@ -87,7 +87,7 @@
   --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #9a5560, #9a5560);
-  --topbar-gradient: linear-gradient(90deg, #9a5560, #b76e79, #b8985a, #b76e79);
+  --topbar-gradient: linear-gradient(90deg, #8a4a55, #9a5560, #8c6a2f, #9a5560);
   --toast-gradient: linear-gradient(135deg, #9a5560, #4a2832);
 }
 
@@ -98,13 +98,13 @@
   --rb-300: 224 160 166;
   --rb-400: 208 128 138;
   --rb-500: 201 112 122;
-  --rb-600: 168 80 92;
+  --rb-600: 156 69 82;
   --rb-700: 138 62 74;
   --rb-800: 108 48 58;
   --rb-900: 78 34 42;
   --plum: 90 30 46;
   --blush: 253 240 238;
-  --gold: 190 140 100;
+  --gold: 143 106 60;
 
   --bg: 246 227 224;
   --surface: 255 255 255;
@@ -112,7 +112,7 @@
   --text: 42 26 32;
   --text-muted: 100 80 88;
   --border: 240 196 196;
-  --accent: 168 80 92;
+  --accent: 156 69 82;
   --on-accent: 255 255 255;
 
   --radius-card: 16px;
@@ -121,16 +121,16 @@
   --shadow-card: 0 14px 34px rgba(138, 62, 74, 0.12);
   --shadow-glow: 0 18px 45px rgba(201, 112, 122, 0.28);
 
-  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --page-bg: linear-gradient(rgba(246, 227, 224, 0.84), rgba(249, 236, 233, 0.92)), url("/images/novas/textura-cetim-rosa.webp");
   --page-bg-size: cover;
   --hero-img: url("/images/novas/fundo-3d-cena.webp");
   --band-img: none;
 
-  --brand-gradient: linear-gradient(135deg, #c9707a, #dc8f98, #a8505c);
-  --topbar-gradient: linear-gradient(90deg, #a8505c, #c9707a, #be8c64, #c9707a);
+  --brand-gradient: linear-gradient(135deg, #a8505c, #b05866, #8e3f4b);
+  --topbar-gradient: linear-gradient(90deg, #9c4552, #a8505c, #8f6a3c, #a8505c);
   --toast-gradient: linear-gradient(135deg, #a8505c, #5a1e2e);
 }
 
@@ -166,8 +166,8 @@
   --shadow-card: 0 14px 34px rgba(0, 0, 0, 0.35);
   --shadow-glow: 0 18px 45px rgba(224, 164, 88, 0.22);
 
-  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --page-bg: linear-gradient(rgba(26, 10, 18, 0.84), rgba(26, 10, 18, 0.92)), url("/images/novas/fundo-escuro.webp");
   --page-bg-size: cover;
@@ -175,8 +175,8 @@
   --band-img: none;
 
   --brand-gradient: linear-gradient(135deg, #e0a458, #f0c27c, #c98a3c);
-  --topbar-gradient: linear-gradient(90deg, #2a1220, #e0a458, #2a1220);
-  --toast-gradient: linear-gradient(135deg, #e0a458, #5a1238);
+  --topbar-gradient: linear-gradient(90deg, #c98a3c, #e0a458, #f0c27c, #e0a458);
+  --toast-gradient: linear-gradient(135deg, #e0a458, #c98a3c);
 }
 
 /* Vitrine 3D: superfícies de vidro. */

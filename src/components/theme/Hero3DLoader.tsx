@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { shouldRender3D } from "@/lib/hero3d-config";
+import { Hero3DBoundary } from "./Hero3DBoundary";
 import { useTheme } from "./ThemeProvider";
 
 // Three.js só é baixado quando o tema vitrine-3d está ativo.
@@ -36,7 +37,9 @@ export function Hero3DLoader() {
 
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <Hero3D onFail={() => setFailed(true)} />
+      <Hero3DBoundary onError={() => setFailed(true)}>
+        <Hero3D onFail={() => setFailed(true)} />
+      </Hero3DBoundary>
     </div>
   );
 }
