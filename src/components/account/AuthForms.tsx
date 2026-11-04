@@ -2,7 +2,8 @@
 
 import { Eye, EyeOff, LockKeyhole, Mail, Phone, UserRound } from "lucide-react";
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useCallback, useMemo, useState } from "react";
+import { TurnstileWidget } from "@/components/account/TurnstileWidget";
 import { Button } from "@/components/ui/Button";
 import { brandLogoPath } from "@/lib/brand-assets";
 import { isStrongPassword } from "@/lib/password";
@@ -10,27 +11,37 @@ import { isStrongPassword } from "@/lib/password";
 export function LoginForm() {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
+  const [resetKey, setResetKey] = useState(0);
+  const [recovering, setRecovering] = useState(false);
+  const onToken = useCallback((value: string) => setToken(value), []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email: form.get("email"), password: form.get("password") }),
-      headers: { "Content-Type": "application/json" }
-    });
-    const data = await response.json();
-    setMessage(data.message ?? data.error);
+    const url = recovering ? "/api/auth/recover" : "/api/auth/login";
+    const body = recovering
+      ? { email: form.get("email"), turnstileToken: token }
+      : { email: form.get("email"), password: form.get("password"), turnstileToken: token };
+    const response = await fetch(url, { method: "POST", body: JSON.stringify(body), headers: { "Content-Type": "application/json" } });
+    const data = await response.json().catch(() => ({}));
+    setMessage(data.message ?? data.error ?? "Não foi possível concluir agora.");
+    setToken("");
+    setResetKey((value) => value + 1);
+    if (response.ok && !recovering) window.location.assign("/minha-conta");
   }
 
   return (
-    <AuthShell title="Entrar">
+    <AuthShell title={recovering ? "Recuperar senha" : "Entrar"}>
       <form onSubmit={submit} className="grid gap-4">
         <Input icon={<Mail className="size-4" />} label="E-mail" name="email" type="email" required />
-        <PasswordInput show={show} setShow={setShow} label="Senha" name="password" />
-        <Button type="submit">Entrar com segurança</Button>
-        <Button href="/cadastro" variant="secondary">Criar conta</Button>
-        <a href="#recuperar" className="text-center text-sm font-bold text-rosebrand-700">Esqueci minha senha</a>
+        {!recovering && <PasswordInput show={show} setShow={setShow} label="Senha" name="password" />}
+        <TurnstileWidget onToken={onToken} resetKey={resetKey} />
+        <Button type="submit">{recovering ? "Enviar instruções" : "Entrar com segurança"}</Button>
+        {!recovering && <Button href="/cadastro" variant="secondary">Criar conta</Button>}
+        <button type="button" onClick={() => { setRecovering(!recovering); setMessage(""); }} className="text-center text-sm font-bold text-rosebrand-700">
+          {recovering ? "Voltar ao login" : "Esqueci minha senha"}
+        </button>
         {message && <p className="rounded-lg bg-rosebrand-100 p-3 text-sm font-bold text-rosebrand-800">{message}</p>}
       </form>
     </AuthShell>
@@ -41,6 +52,9 @@ export function RegisterForm() {
   const [show, setShow] = useState(false);
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
+  const [resetKey, setResetKey] = useState(0);
+  const onToken = useCallback((value: string) => setToken(value), []);
   const strong = useMemo(() => isStrongPassword(password), [password]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -57,12 +71,15 @@ export function RegisterForm() {
         name: form.get("name"),
         email: form.get("email"),
         phone: form.get("phone"),
-        password: form.get("password")
+        password: form.get("password"),
+        turnstileToken: token
       }),
       headers: { "Content-Type": "application/json" }
     });
-    const data = await response.json();
-    setMessage(data.message ?? data.error);
+    const data = await response.json().catch(() => ({}));
+    setMessage(data.message ?? data.error ?? "Não foi possível concluir agora.");
+    setToken("");
+    setResetKey((value) => value + 1);
   }
 
   return (
@@ -74,6 +91,7 @@ export function RegisterForm() {
         <PasswordInput show={show} setShow={setShow} label="Senha" name="password" value={password} onChange={setPassword} />
         <PasswordInput show={show} setShow={setShow} label="Confirmar senha" name="confirmPassword" />
         <PasswordRules strong={strong} />
+        <TurnstileWidget onToken={onToken} resetKey={resetKey} />
         <Button type="submit">Cadastrar</Button>
         <Button href="/login" variant="secondary">Já tenho conta</Button>
         {message && <p className="rounded-lg bg-rosebrand-100 p-3 text-sm font-bold text-rosebrand-800">{message}</p>}
@@ -93,7 +111,7 @@ function AuthShell({ title, children }: { title: string; children: React.ReactNo
         <h1 className="mb-5 text-center text-2xl font-black text-ink">{title}</h1>
         {children}
         <p className="mt-5 text-center text-xs leading-5 text-muted">
-          Proteção preparada com hash Argon2id, rate limiting, validação de e-mail, token temporário e CAPTCHA em produção.
+          Proteção com verificação anti-robô, limite de tentativas e confirmação por e-mail. Sua senha nunca é guardada em texto aberto.
         </p>
       </div>
     </section>

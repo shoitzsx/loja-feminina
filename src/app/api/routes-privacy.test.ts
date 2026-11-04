@@ -3,6 +3,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { POST as checkoutPost } from "./checkout/route";
 import { POST as registerPost } from "./auth/register/route";
 
+vi.mock("@/server/supabase", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/server/supabase")>()), createSupabaseServer: vi.fn(async () => ({ auth: { signUp: vi.fn(async () => ({ data: { user: { id: "1" } }, error: null })) } })) }));
+
 afterEach(() => vi.restoreAllMocks());
 
 function json(url: string, body: unknown) {

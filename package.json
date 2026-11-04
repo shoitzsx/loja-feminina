@@ -15,6 +15,8 @@
   "dependencies": {
     "@prisma/client": "6.19.3",
     "@react-three/fiber": "^9.8.2",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
     "argon2": "^0.41.1",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
